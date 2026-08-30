@@ -50,7 +50,7 @@ Claim scan on `index.html` and README: fail on "will get N inches," "flood warni
 
 Settings: Pages, `main`, site root. MIT. `data/official/` is public NOAA/NCEI numbers with `source_url` and retrieved date in `SOURCES.md`. Do not commit RadarOnly stacks or NWIS dumps.
 
-Org index gist `66b896b0` gets one line under a new heading Site at Stage C, not under Maps / Q / Precip science.
+Readable index is gist `66b896b0` (Site heading lists this stub). `RESEARCH.md` in `.github` is a pointer, not a second full copy.
 
 ## Later, still static
 
