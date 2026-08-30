@@ -2,20 +2,18 @@
 
 Official winter outlook and station normals for Indiana, plus a ledger of models that did not beat those fields.
 
-Static GitHub Pages. Not a science tree. Science stays in the locked holdout trees.
-
 Live: https://martialsystems.github.io/indiana_wx_pages/
 
-This commit is Stage 0: a stub that serves the first sentence and the banner. CPC numbers and the ledger are later stages. Do not skip the ledger for a map.
+Stage B: CPC DJF 2026-27 outlook issued 20 August 2026, 1991-2020 DJF snowfall normals at four GHCND cores, and a ledger of locked holdouts. Science stays in the locked trees.
 
-Banner: Not NWS. Not a warning. Studies are dated holdouts.
-
-Hero copy is CPC plus 1991-2020 normals only, once Stage A lands. "ML" appears only inside the ledger as lost to a named bar.
+Hero copy is CPC plus 1991-2020 normals. Ridge and HGB appear only in the ledger, each against a named bar.
 
 Research index: https://gist.github.com/martialsystems/66b896b0a4a0b8cba2b478aef64312f3
 
 ```bash
+python3 scripts/build_page.py
 python3 -m pytest tests -q
+python3 scripts/viewport_sanity.py
 ```
 
 MIT. Martial Systems LLC.

@@ -4,6 +4,12 @@
       "id": "copy-scan",
       "argv": ["python3", "-m", "pytest", "tests", "-q"],
       "timeout_s": 60
+    },
+    {
+      "id": "viewport",
+      "argv": ["python3", "scripts/viewport_sanity.py"],
+      "timeout_s": 90,
+      "paths": ["*.html", "*.css", "assets/**", "scripts/viewport_sanity.py"]
     }
   ]
 }

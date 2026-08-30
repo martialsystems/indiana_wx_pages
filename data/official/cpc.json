@@ -1,0 +1,20 @@
+{
+  "product": "NOAA CPC seasonal outlook",
+  "season": "DJF 2026-27",
+  "valid": "December 2026 through February 2027",
+  "issued": "2026-08-20",
+  "issued_text": "830 AM EDT Thu Aug 20 2026",
+  "forecaster": "Scott Handel",
+  "next_issue": "2026-09-17",
+  "climatology": "1991-2020",
+  "discussion_url": "https://www.cpc.ncep.noaa.gov/products/predictions/90day/fxus05.html",
+  "maps_page_url": "https://www.cpc.ncep.noaa.gov/products/predictions/long_range/seasonal.php?lead=04",
+  "temp_gif_url": "https://www.cpc.ncep.noaa.gov/products/predictions/long_range/lead04/off04_temp.gif",
+  "prcp_gif_url": "https://www.cpc.ncep.noaa.gov/products/predictions/long_range/lead04/off04_prcp.gif",
+  "temp_map": "assets/cpc/off04_temp.gif",
+  "prcp_map": "assets/cpc/off04_prcp.gif",
+  "retrieved": "2026-08-29",
+  "indiana_temperature": "Above-normal lean. The issued map puts the higher above-normal probabilities over northern Indiana (same band as the Great Lakes) and a weaker tilt over the south.",
+  "indiana_precipitation": "Equal chances. A below-normal lean is drawn over Michigan; it is not drawn across Indiana on this issue.",
+  "enso": "El Nino is present and strengthening. CPC cites a greater than 90 percent chance of a very strong event this fall and winter."
+}

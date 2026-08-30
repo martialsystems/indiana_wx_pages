@@ -1,0 +1,46 @@
+{
+  "period": "1991-2020",
+  "element": "MLY-SNOW-NORMAL",
+  "unit": "inches",
+  "definition": "DJF is the sum of December, January, and February monthly snowfall normals.",
+  "source_url_template": "https://www.ncei.noaa.gov/data/normals-monthly/1991-2020/access/{sid}.csv",
+  "retrieved": "2026-08-29",
+  "stations": [
+    {
+      "id": "USW00014848",
+      "city": "South Bend",
+      "name": "SOUTH BEND MICHIANA RGNL AP, IN US",
+      "dec_in": 13.7,
+      "jan_in": 21.6,
+      "feb_in": 16.1,
+      "djf_snow_in": 51.4
+    },
+    {
+      "id": "USW00014827",
+      "city": "Fort Wayne",
+      "name": "FT WAYNE INTL AP, IN US",
+      "dec_in": 7.6,
+      "jan_in": 10.8,
+      "feb_in": 7.8,
+      "djf_snow_in": 26.2
+    },
+    {
+      "id": "USW00093819",
+      "city": "Indianapolis",
+      "name": "INDIANAPOLIS, IN US",
+      "dec_in": 6.4,
+      "jan_in": 8.8,
+      "feb_in": 6.0,
+      "djf_snow_in": 21.2
+    },
+    {
+      "id": "USW00093817",
+      "city": "Evansville",
+      "name": "EVANSVILLE REGIONAL AP, IN US",
+      "dec_in": 2.8,
+      "jan_in": 3.4,
+      "feb_in": 3.1,
+      "djf_snow_in": 9.3
+    }
+  ]
+}

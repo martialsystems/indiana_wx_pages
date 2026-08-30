@@ -1,0 +1,49 @@
+{
+  "caption": "Locked holdouts. Each row lost to the named bar. Science stays in those trees.",
+  "rows": [
+    {
+      "id": "djf-snow",
+      "tree": "indiana_djf_snow_tercile",
+      "tree_url": "https://github.com/martialsystems/indiana_djf_snow_tercile",
+      "question": "Can October features plus ENSO beat the 1991-2020 DJF snowfall normal at held-out Indiana GHCND stations?",
+      "bar": "1991-2020 normal",
+      "held_out": "Ridge RMSE 14.48 in vs normal 13.00 in vs last year 10.18 in.",
+      "science_sha": "9aa7935",
+      "commit_url": "https://github.com/martialsystems/indiana_djf_snow_tercile/commit/9aa7935",
+      "gist_url": "https://gist.github.com/martialsystems/b5f900aad37487bb8c0206a321c1ed5c"
+    },
+    {
+      "id": "amount",
+      "tree": "indiana_cocorahs_mrms",
+      "tree_url": "https://github.com/martialsystems/indiana_cocorahs_mrms",
+      "question": "Does RadarOnly MRMS match CoCoRaHS daily rain at held-out Indiana stations?",
+      "bar": "RadarOnly",
+      "held_out": "RadarOnly RMSE 0.133 in. HGB 0.141. Ridge 0.124 RMSE then 0.049 MAE against radar 0.048.",
+      "science_sha": "ac36f0f",
+      "commit_url": "https://github.com/martialsystems/indiana_cocorahs_mrms/commit/ac36f0f",
+      "gist_url": "https://gist.github.com/martialsystems/b5f900aad37487bb8c0206a321c1ed5c"
+    },
+    {
+      "id": "jja-miss",
+      "tree": "indiana_radar_miss",
+      "tree_url": "https://github.com/martialsystems/indiana_radar_miss",
+      "question": "When does RadarOnly miss CoCoRaHS daily rain at held-out Indiana stations?",
+      "bar": "union miss 0.378",
+      "held_out": "Lake 0.375 vs 0.379. Far range 0.403 vs 0.370. HGB Brier 0.226 vs 0.235, AUC 0.59.",
+      "science_sha": "1416da1",
+      "commit_url": "https://github.com/martialsystems/indiana_radar_miss/commit/1416da1",
+      "gist_url": "https://gist.github.com/martialsystems/b5f900aad37487bb8c0206a321c1ed5c"
+    },
+    {
+      "id": "winter-lake",
+      "tree": "indiana_winter_lake_miss",
+      "tree_url": "https://github.com/martialsystems/indiana_winter_lake_miss",
+      "question": "Does the RadarOnly miss rate jump in the northwest lake sector in winter?",
+      "bar": "JJA lake 0.375 vs 0.379",
+      "held_out": "NDJFM lake 0.391 vs 0.375. Union 0.377 vs JJA 0.378.",
+      "science_sha": "6b47f21",
+      "commit_url": "https://github.com/martialsystems/indiana_winter_lake_miss/commit/6b47f21",
+      "gist_url": "https://gist.github.com/martialsystems/b5f900aad37487bb8c0206a321c1ed5c"
+    }
+  ]
+}

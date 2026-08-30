@@ -7,11 +7,75 @@
   <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-  <p class="banner">Not NWS. Not a warning. Studies are dated holdouts.</p>
   <main>
     <h1>Indiana weather pages</h1>
     <p class="lead">Official winter outlook and station normals for Indiana, plus a ledger of models that did not beat those fields.</p>
-    <p>Stage 0 stub. CPC excerpt, four-city normals, and the ledger land in later stages. Science stays in the locked trees.</p>
+
+    <section id="outlook">
+      <h2>CPC DJF 2026-27</h2>
+      <p>Issued 2026-08-20. Valid December 2026 through February 2027. Next CPC update 2026-09-17. Climatology 1991-2020.</p>
+      <p>Indiana temperature: Above-normal lean. The issued map puts the higher above-normal probabilities over northern Indiana (same band as the Great Lakes) and a weaker tilt over the south. Precipitation: Equal chances. A below-normal lean is drawn over Michigan; it is not drawn across Indiana on this issue.</p>
+      <p>El Nino is present and strengthening. CPC cites a greater than 90 percent chance of a very strong event this fall and winter. Forecaster Scott Handel, 830 AM EDT Thu Aug 20 2026.</p>
+      <figure>
+        <img src="assets/cpc/off04_temp.gif" alt="NOAA CPC seasonal temperature outlook, DJF 2026-27, issued 2026-08-20">
+        <figcaption>NOAA CPC temperature outlook. Issued 2026-08-20. Valid DJF 2026-27.</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/cpc/off04_prcp.gif" alt="NOAA CPC seasonal precipitation outlook, DJF 2026-27, issued 2026-08-20">
+        <figcaption>NOAA CPC precipitation outlook. Issued 2026-08-20. Valid DJF 2026-27.</figcaption>
+      </figure>
+      <p><a href="https://www.cpc.ncep.noaa.gov/products/predictions/90day/fxus05.html">CPC prognostic discussion</a>. The GIFs in this repo are the 2026-08-20 snapshots. CPC's live lead-4 URL changes when the next outlook is issued.</p>
+    </section>
+
+    <section id="normals">
+      <h2>1991-2020 DJF snowfall normals</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>City</th>
+              <th>Station</th>
+              <th>Dec</th>
+              <th>Jan</th>
+              <th>Feb</th>
+              <th>DJF (in)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>South Bend</td><td><code>USW00014848</code></td><td>13.7</td><td>21.6</td><td>16.1</td><td>51.4</td></tr>
+            <tr><td>Fort Wayne</td><td><code>USW00014827</code></td><td>7.6</td><td>10.8</td><td>7.8</td><td>26.2</td></tr>
+            <tr><td>Indianapolis</td><td><code>USW00093819</code></td><td>6.4</td><td>8.8</td><td>6.0</td><td>21.2</td></tr>
+            <tr><td>Evansville</td><td><code>USW00093817</code></td><td>2.8</td><td>3.4</td><td>3.1</td><td>9.3</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>NCEI 1991-2020 MLY-SNOW-NORMAL. DJF is the sum of December, January, and February monthly snowfall normals. Inches. Retrieved 2026-08-29.</p>
+    </section>
+
+    <section id="ledger">
+      <h2>Ledger</h2>
+      <p>Locked holdouts. Each row lost to the named bar. Science stays in those trees.</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Study</th>
+              <th>Bar</th>
+              <th>Held-out</th>
+              <th>SHA</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><a href="https://github.com/martialsystems/indiana_djf_snow_tercile">indiana_djf_snow_tercile</a></td><td>1991-2020 normal</td><td>Ridge RMSE 14.48 in vs normal 13.00 in vs last year 10.18 in.</td><td><a href="https://github.com/martialsystems/indiana_djf_snow_tercile/commit/9aa7935">9aa7935</a></td></tr>
+            <tr><td><a href="https://github.com/martialsystems/indiana_cocorahs_mrms">indiana_cocorahs_mrms</a></td><td>RadarOnly</td><td>RadarOnly RMSE 0.133 in. HGB 0.141. Ridge 0.124 RMSE then 0.049 MAE against radar 0.048.</td><td><a href="https://github.com/martialsystems/indiana_cocorahs_mrms/commit/ac36f0f">ac36f0f</a></td></tr>
+            <tr><td><a href="https://github.com/martialsystems/indiana_radar_miss">indiana_radar_miss</a></td><td>union miss 0.378</td><td>Lake 0.375 vs 0.379. Far range 0.403 vs 0.370. HGB Brier 0.226 vs 0.235, AUC 0.59.</td><td><a href="https://github.com/martialsystems/indiana_radar_miss/commit/1416da1">1416da1</a></td></tr>
+            <tr><td><a href="https://github.com/martialsystems/indiana_winter_lake_miss">indiana_winter_lake_miss</a></td><td>JJA lake 0.375 vs 0.379</td><td>NDJFM lake 0.391 vs 0.375. Union 0.377 vs JJA 0.378.</td><td><a href="https://github.com/martialsystems/indiana_winter_lake_miss/commit/6b47f21">6b47f21</a></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <p class="foot">Martial Systems LLC. CPC and NCEI numbers are dated official fields. Ledger SHAs are frozen. Live: <a href="https://martialsystems.github.io/indiana_wx_pages/">martialsystems.github.io/indiana_wx_pages/</a>. Research index: <a href="https://gist.github.com/martialsystems/66b896b0a4a0b8cba2b478aef64312f3">gist 66b896b0</a>.</p>
   </main>
 </body>
 </html>

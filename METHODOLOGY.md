@@ -1,8 +1,8 @@
 # Methodology: indiana_wx_pages
 
-Static GitHub Pages. Not a science tree. Not a second vol server. The forecast stripe is official public fields. The Martial Systems stripe is locked nos and named Indiana points.
+Static GitHub Pages. The forecast stripe is official public fields. The Martial Systems stripe is locked nos and named Indiana points.
 
-Live URL (after Pages is on): https://martialsystems.github.io/indiana_wx_pages/
+Live URL: https://martialsystems.github.io/indiana_wx_pages/
 
 First sentence on the site:
 
@@ -14,7 +14,7 @@ Three blocks on one page (and optional subpages). No XGBoost at build time.
 
 **A. Official now / outlook**
 
-NOAA CPC DJF temperature and precipitation lean for Indiana, issue date stamped (text plus link to CPC, not a reforecast).  
+NOAA CPC DJF temperature and precipitation lean for Indiana, issue date stamped (text plus link to CPC, not a reforecast). Snapshots of the issued maps live in `assets/cpc/` so the live lead-4 URL cannot silently replace them.  
 1991-2020 DJF snow normals at South Bend, Fort Wayne, Indianapolis, Evansville (the four cores from `indiana_djf_snow_tercile`).  
 Optional: Open-Meteo or NWS current conditions client-side for those four cities. If the API dies, the page still renders A's static table.
 
@@ -26,14 +26,14 @@ One table, links to SHAs and gists. Frozen rows from locked trees, hand-copied i
 
 Link gist 16584e78 and the Nora PNGs on GitHub raw. Caption: not a winter forecast, not a FIRM. No Thursday Pools table on this site.
 
-Stage 0 ships a stub only. Do not skip to a map before B.
+Stage 0 shipped the stub. Stage B is CPC plus normals plus ledger. Do not skip to a map before B.
 
 ## Copy lock
 
 Hero: CPC plus normals only.  
-"ML" appears only inside the ledger as lost to a named bar.  
+Ridge and HGB appear only inside the ledger as lost to a named bar.  
 Every official number has an issue date or climate period.  
-Banner: Not NWS. Not a warning. Studies are dated holdouts.
+No slogan banner.
 
 Claim scan on `index.html` and README: fail on "will get N inches," "flood warning," `p_sfha`, "unmapped risk," casualty language.
 
@@ -50,7 +50,7 @@ Claim scan on `index.html` and README: fail on "will get N inches," "flood warni
 
 Settings: Pages, `main`, site root. MIT. `data/official/` is public NOAA/NCEI numbers with `source_url` and retrieved date in `SOURCES.md`. Do not commit RadarOnly stacks or NWIS dumps.
 
-Readable index is gist `66b896b0` (Site heading lists this stub). `RESEARCH.md` in `.github` is a pointer, not a second full copy.
+Readable index is gist `66b896b0` (Site heading lists this page). `RESEARCH.md` in `.github` is a pointer, not a second full copy.
 
 ## Later, still static
 
@@ -62,7 +62,7 @@ Living RadarOnly-vs-CoCoRaHS stays off Pages unless a server is accepted.
 
 ## CI
 
-Light: pytest that (1) ledger SHAs match `data/ledger.json` once B exists, (2) forbidden phrases absent, (3) four station IDs present at Stage A. No NOAA live fetch in CI.
+Light: pytest that (1) ledger SHAs match `data/ledger.json` once B exists, (2) forbidden phrases absent, (3) four station IDs present at Stage A. No NOAA live fetch in CI. `python3 scripts/build_page.py` must leave `index.html` unchanged. Viewport: `python3 scripts/viewport_sanity.py` at 390x844 and 1280x800.
 
 ## Parked
 
