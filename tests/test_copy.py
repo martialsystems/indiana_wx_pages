@@ -35,7 +35,9 @@ def test_index_lead_cpc_and_cores() -> None:
     html = (ROOT / "index.html").read_text(encoding="utf-8")
     cpc = json.loads((ROOT / "data/official/cpc.json").read_text(encoding="utf-8"))
     normals = json.loads((ROOT / "data/official/normals.json").read_text(encoding="utf-8"))
-    assert "<h1>{0}</h1>".format(LEAD) in html
+    assert "<h1>Indiana Winter Outlook</h1>" in html
+    assert "<h1>{0}</h1>".format(LEAD) not in html
+    assert "<p>{0}</p>".format(LEAD) in html
     assert "<h1>Indiana weather pages</h1>" not in html
     assert "Science stays" not in html
     assert "those trees" not in html

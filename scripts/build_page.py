@@ -13,6 +13,7 @@ LEAD = (
     "Official winter outlook and station normals for Indiana, "
     "plus a ledger of models that did not beat those fields."
 )
+HEADING = "Indiana Winter Outlook"
 INDEX_GIST = "https://gist.github.com/martialsystems/66b896b0a4a0b8cba2b478aef64312f3"
 LIVE = "https://martialsystems.github.io/indiana_wx_pages/"
 NOTICE = (
@@ -60,12 +61,13 @@ def build() -> str:
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Indiana weather pages</title>
+  <title>{e(HEADING)}</title>
   <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
   <main>
-    <h1>{e(LEAD)}</h1>
+    <h1>{e(HEADING)}</h1>
+    <p>{e(LEAD)}</p>
 
     <section id="outlook">
       <h2>CPC {season}</h2>
