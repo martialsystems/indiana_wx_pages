@@ -1,0 +1,39 @@
+:root {
+  color-scheme: light;
+  --bg: #f6f4ef;
+  --ink: #1c1917;
+  --muted: #57534e;
+  --line: #d6d3d1;
+  --banner: #1c1917;
+  --banner-ink: #fafaf9;
+}
+html, body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 16px/1.45 Georgia, "Times New Roman", serif;
+}
+.banner {
+  margin: 0;
+  padding: 0.55rem 1.25rem;
+  background: var(--banner);
+  color: var(--banner-ink);
+  font: 13px/1.3 system-ui, sans-serif;
+}
+main {
+  max-width: 40rem;
+  padding: 1.5rem 1.25rem 3rem;
+}
+h1 {
+  font-size: 1.35rem;
+  font-weight: 600;
+}
+.lead {
+  font-size: 1.05rem;
+}
+p {
+  color: var(--ink);
+}
+main p:last-of-type {
+  color: var(--muted);
+}

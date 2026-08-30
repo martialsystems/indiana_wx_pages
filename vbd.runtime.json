@@ -1,0 +1,9 @@
+{
+  "runtime_checks": [
+    {
+      "id": "copy-scan",
+      "argv": ["python3", "-m", "pytest", "tests", "-q"],
+      "timeout_s": 60
+    }
+  ]
+}
