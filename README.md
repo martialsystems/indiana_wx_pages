@@ -4,7 +4,7 @@ Official winter outlook and station normals for Indiana, plus a ledger of models
 
 Live: https://martialsystems.github.io/indiana_wx_pages/
 
-Stage B: CPC DJF 2026-27 outlook issued 20 August 2026, 1991-2020 DJF snowfall normals at four GHCND cores, and a ledger of locked holdouts. Science stays in the locked trees.
+Stage B: CPC DJF 2026-27 outlook issued 20 August 2026, 1991-2020 DJF snowfall normals at four GHCND cores, and a ledger of locked holdouts. Details stay in the linked repos.
 
 Hero copy is CPC plus 1991-2020 normals. Ridge and HGB appear only in the ledger, each against a named bar.
 

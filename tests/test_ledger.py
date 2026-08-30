@@ -12,6 +12,8 @@ ROOT = Path(__file__).resolve().parents[1]
 def test_ledger_rows_in_html() -> None:
     ledger = json.loads((ROOT / "data/ledger.json").read_text(encoding="utf-8"))
     html = (ROOT / "index.html").read_text(encoding="utf-8")
+    assert ledger["caption"] in html
+    assert "Details stay in the linked repos." in ledger["caption"]
     assert len(ledger["rows"]) == 4
     for rec in ledger["rows"]:
         assert rec["bar"] in html

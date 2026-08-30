@@ -35,7 +35,11 @@ def test_index_lead_cpc_and_cores() -> None:
     html = (ROOT / "index.html").read_text(encoding="utf-8")
     cpc = json.loads((ROOT / "data/official/cpc.json").read_text(encoding="utf-8"))
     normals = json.loads((ROOT / "data/official/normals.json").read_text(encoding="utf-8"))
-    assert LEAD in html
+    assert "<h1>{0}</h1>".format(LEAD) in html
+    assert "<h1>Indiana weather pages</h1>" not in html
+    assert "Science stays" not in html
+    assert "those trees" not in html
+    assert "Details stay in the linked repos." in html
     assert NOTICE in html
     assert html.rfind(NOTICE) > html.rfind('id="ledger"')
     assert SLOGAN not in html
@@ -67,6 +71,8 @@ def test_readme() -> None:
     assert "martialsystems.github.io/indiana_wx_pages" in text
     assert "Stage B" in text
     assert SLOGAN not in text
+    assert "Science stays" not in text
+    assert "Details stay in the linked repos." in text
     assert "What it is not" not in text
     assert _hits(text) == []
     assert "\u2014" not in text

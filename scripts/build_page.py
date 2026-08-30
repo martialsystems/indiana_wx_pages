@@ -65,8 +65,7 @@ def build() -> str:
 </head>
 <body>
   <main>
-    <h1>Indiana weather pages</h1>
-    <p class="lead">{e(LEAD)}</p>
+    <h1>{e(LEAD)}</h1>
 
     <section id="outlook">
       <h2>CPC {season}</h2>
@@ -75,11 +74,9 @@ def build() -> str:
       <p>{e(cpc["enso"])} Forecaster {e(cpc["forecaster"])}, {e(cpc["issued_text"])}.</p>
       <figure>
         <img src="{e(cpc["temp_map"])}" alt="NOAA CPC seasonal temperature outlook, {season}, issued {issued}">
-        <figcaption>NOAA CPC temperature outlook. Issued {issued}. Valid {season}.</figcaption>
       </figure>
       <figure>
         <img src="{e(cpc["prcp_map"])}" alt="NOAA CPC seasonal precipitation outlook, {season}, issued {issued}">
-        <figcaption>NOAA CPC precipitation outlook. Issued {issued}. Valid {season}.</figcaption>
       </figure>
       <p><a href="{e(cpc["discussion_url"])}">CPC prognostic discussion</a>. The GIFs in this repo are the {issued} snapshots. CPC's live lead-4 URL changes when the next outlook is issued.</p>
     </section>

@@ -18,14 +18,12 @@ main {
 h1 {
   font-size: 1.35rem;
   font-weight: 600;
+  line-height: 1.35;
 }
 h2 {
   font-size: 1.15rem;
   font-weight: 600;
   margin-top: 2rem;
-}
-.lead {
-  font-size: 1.05rem;
 }
 p, th, td, figcaption {
   color: var(--ink);
