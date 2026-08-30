@@ -35,6 +35,11 @@ p, th, td, figcaption {
   font-size: 0.92rem;
   margin-top: 2.5rem;
 }
+.notice {
+  color: var(--muted);
+  font-size: 0.92rem;
+  margin-top: 0.75rem;
+}
 img {
   max-width: 100%;
   height: auto;

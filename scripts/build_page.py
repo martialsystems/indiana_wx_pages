@@ -15,6 +15,10 @@ LEAD = (
 )
 INDEX_GIST = "https://gist.github.com/martialsystems/66b896b0a4a0b8cba2b478aef64312f3"
 LIVE = "https://martialsystems.github.io/indiana_wx_pages/"
+NOTICE = (
+    "This is CPC and climate normals. It is not a National Weather Service forecast "
+    "and it is not telling you to do anything."
+)
 
 
 def build() -> str:
@@ -123,6 +127,7 @@ def build() -> str:
     </section>
 
     <p class="foot">Martial Systems LLC. CPC and NCEI numbers are dated official fields. Ledger SHAs are frozen. Live: <a href="{e(LIVE)}">{e(LIVE.replace("https://", ""))}</a>. Research index: <a href="{e(INDEX_GIST)}">gist 66b896b0</a>.</p>
+    <p class="notice">{e(NOTICE)}</p>
   </main>
 </body>
 </html>

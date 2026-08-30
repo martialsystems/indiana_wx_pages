@@ -33,7 +33,7 @@ Stage 0 shipped the stub. Stage B is CPC plus normals plus ledger. Do not skip t
 Hero: CPC plus normals only.  
 Ridge and HGB appear only inside the ledger as lost to a named bar.  
 Every official number has an issue date or climate period.  
-No slogan banner.
+No slogan banner. Closing line, exact: This is CPC and climate normals. It is not a National Weather Service forecast and it is not telling you to do anything.
 
 Claim scan on `index.html` and README: fail on "will get N inches," "flood warning," `p_sfha`, "unmapped risk," casualty language.
 

@@ -20,6 +20,10 @@ BANS = (
     (r"\b(deaths?|fatalit(?:y|ies)|casualt(?:y|ies)|killed)\b", "casualty"),
 )
 SLOGAN = "Not NWS. Not a warning. Studies are dated holdouts."
+NOTICE = (
+    "This is CPC and climate normals. It is not a National Weather Service forecast "
+    "and it is not telling you to do anything."
+)
 CORES = ("USW00014848", "USW00014827", "USW00093819", "USW00093817")
 
 
@@ -32,6 +36,8 @@ def test_index_lead_cpc_and_cores() -> None:
     cpc = json.loads((ROOT / "data/official/cpc.json").read_text(encoding="utf-8"))
     normals = json.loads((ROOT / "data/official/normals.json").read_text(encoding="utf-8"))
     assert LEAD in html
+    assert NOTICE in html
+    assert html.rfind(NOTICE) > html.rfind('id="ledger"')
     assert SLOGAN not in html
     assert 'class="banner"' not in html
     assert "XGBoost" not in html
@@ -73,5 +79,6 @@ def test_methodology_names_stages() -> None:
     assert "Stage B" in text
     assert "ledger" in text.lower()
     assert SLOGAN not in text
+    assert NOTICE in text
     assert "https://martialsystems.github.io/indiana_wx_pages/" in text
     assert "\u2014" not in text
