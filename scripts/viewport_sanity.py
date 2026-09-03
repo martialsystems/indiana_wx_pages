@@ -69,6 +69,19 @@ def static_errors() -> List[str]:
         return errs
     js = js_path.read_text(encoding="utf-8")
     errs.extend(catalog_link_errors(html, css, js))
+    tree = ROOT / "trees" / "indiana_freeze_date" / "index.html"
+    if not tree.is_file():
+        errs.append("missing trees/indiana_freeze_date/index.html")
+    else:
+        th = tree.read_text(encoding="utf-8")
+        if "28941fb" not in th or "mae_bars.png" not in th or "tree-page" not in th:
+            errs.append("freeze-date write-up missing SHA, figure, or tree-page class")
+        if "trees/indiana_freeze_date/" not in html:
+            errs.append("index missing trees/indiana_freeze_date/ href")
+    if "nav.rail a" not in css:
+        errs.append("CSS missing nav.rail a")
+    if "tree-page" not in js:
+        errs.append("console.js missing tree-page zoom path")
     return errs
 
 
@@ -227,6 +240,83 @@ def chrome_same_origin_width(chrome: str, url: str, width: int, height: int) -> 
             except subprocess.TimeoutExpired:
                 proc.kill()
     return errs
+
+
+def chrome_tree_overflow(chrome: str, url: str, width: int, height: int) -> List[str]:
+    errs: List[str] = []
+    with tempfile.TemporaryDirectory(prefix="wx-cdp-tree-") as tmp:
+        user = Path(tmp) / "profile"
+        user.mkdir()
+        port = _free_port()
+        cmd = [
+            chrome,
+            "--headless=new",
+            "--disable-gpu",
+            "--remote-debugging-port={0}".format(port),
+            "--user-data-dir={0}".format(user),
+            "--window-size={0},{1}".format(width, height),
+            url,
+        ]
+        proc = subprocess.Popen(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        try:
+            ws = _wait_page_ws(port, timeout=12.0)
+            if not ws:
+                return ["no CDP page for freeze-date write-up at {0}x{1}".format(width, height)]
+            data = _cdp_tree_page(ws)
+            if data is None:
+                return ["CDP freeze-date evaluate failed at {0}x{1}".format(width, height)]
+            if not data.get("writeup") or int(data.get("img") or 0) < 2:
+                return [
+                    "freeze-date write-up or figures missing at {0}x{1}".format(width, height)
+                ]
+            sw, iw = int(data.get("sw") or 0), int(data.get("iw") or 0)
+            if sw > iw + 16:
+                errs.append(
+                    "freeze-date overflow at {0}x{1}: scrollWidth {2} innerWidth {3}".format(
+                        width, height, sw, iw
+                    )
+                )
+        finally:
+            proc.terminate()
+            try:
+                proc.wait(timeout=3)
+            except subprocess.TimeoutExpired:
+                proc.kill()
+    return errs
+
+
+def _cdp_tree_page(ws_url: str):
+    try:
+        cdp = _Cdp(ws_url)
+        cdp.call("Page.enable")
+        cdp.call("Runtime.enable")
+        cdp.call("Page.reload", {"ignoreCache": True})
+        time.sleep(0.4)
+        result = cdp.call(
+            "Runtime.evaluate",
+            {
+                "expression": (
+                    "(async () => {"
+                    " const imgs=[...document.images];"
+                    " await Promise.all(imgs.map(img => img.complete ? 1 : new Promise(r => { img.onload=r; img.onerror=r; })));"
+                    " return {sw: document.documentElement.scrollWidth, iw: window.innerWidth,"
+                    " writeup: !!document.getElementById('writeup'),"
+                    " img: imgs.length};"
+                    "})()"
+                ),
+                "awaitPromise": True,
+                "returnByValue": True,
+            },
+        )
+        cdp.close()
+        value = result.get("result", {}).get("value")
+        if isinstance(value, dict):
+            return value
+        if isinstance(value, str):
+            return json.loads(value)
+        return None
+    except Exception:
+        return None
 
 
 def _free_port() -> int:
@@ -506,6 +596,9 @@ def main() -> int:
             for w, h in (PHONE, DESKTOP):
                 errs.extend(chrome_same_origin_width(chrome, url, w, h))
             errs.extend(chrome_catalog_nav(chrome, url + "#catalog"))
+            tree_url = "http://127.0.0.1:{0}/trees/indiana_freeze_date/".format(port)
+            for w, h in (PHONE, DESKTOP):
+                errs.extend(chrome_tree_overflow(chrome, tree_url, w, h))
         finally:
             httpd.shutdown()
     else:

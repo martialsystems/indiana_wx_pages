@@ -190,8 +190,8 @@
 
     <section id="catalog" data-panel="catalog">
       <h2>Catalog</h2>
-      <p class="read-this">One question per row. Filter by lane, then type a word. A row with a pointer opens that study's figures.</p>
-      <p>Click a row to open its figures. Filter by lane or type to search.</p>
+      <p class="read-this">One question per row. The study title opens the locked write-up when that page exists. The slug opens GitHub. A blank part of the row opens figures.</p>
+      <p>Filter by lane or type to search.</p>
       <div class="lane-keys"><button type="button" data-lane="all" class="is-on">All</button><button type="button" data-lane="maps">Maps</button><button type="button" data-lane="white_river_q">White River Q</button><button type="button" data-lane="precip">Precip</button><button type="button" data-lane="temp">Temp</button><button type="button" data-lane="site">Site</button></div>
       <input id="catalog-q" type="search" placeholder="Search trees">
       <div class="table-wrap">
@@ -226,7 +226,7 @@
             <tr data-lane="precip" data-open-map="indiana_winter_lake_miss" title="Open figures"><td><a href="https://github.com/martialsystems/indiana_winter_lake_miss">Winter lake radar misses <code class="slug">indiana_winter_lake_miss</code></a></td><td><span class="chip chip-locked" title="locked: answered; the split stays">locked</span></td><td>Does the RadarOnly miss rate jump in the northwest lake sector in winter?</td><td>NDJFM lake 0.391 vs 0.375. Union 0.377 vs JJA 0.378.</td><td><a href="https://github.com/martialsystems/indiana_winter_lake_miss/commit/6b47f21">6b47f21</a></td></tr>
             <tr data-lane="precip" data-open-map="nwi_lake_effect_snow" title="Open figures"><td><a href="https://github.com/martialsystems/nwi_lake_effect_snow">NWI lake-belt snow <code class="slug">nwi_lake_effect_snow</code></a></td><td><span class="chip chip-locked" title="locked: answered; the split stays">locked</span></td><td>Does the NWI lake belt get more NDJFM snow days and snow inches than inland Indiana on the same winters?</td><td>+31.81 in / +9.55 days vs Indy. Michigan City USC00125604 and Valparaiso USW00004846: no complete NDJFM SNOW, not scored.</td><td><a href="https://github.com/martialsystems/nwi_lake_effect_snow/commit/82ce0ce">82ce0ce</a></td></tr>
             <tr data-lane="temp" data-open-map="indiana_cpc_djf_skill" title="Open figures"><td><a href="https://github.com/martialsystems/indiana_cpc_djf_skill">indiana cpc djf skill <code class="slug">indiana_cpc_djf_skill</code></a></td><td><span class="chip chip-locked" title="locked: answered; the split stays">locked</span></td><td>Do issued CPC DJF temperature and precipitation outlooks beat climatology at South Bend, Fort Wayne, Indianapolis, and Evansville?</td><td>CPC temp Brier 0.643 vs EC 0.667; precip 0.809 vs 0.667.</td><td><a href="https://github.com/martialsystems/indiana_cpc_djf_skill/commit/eacba62">eacba62</a></td></tr>
-            <tr data-lane="temp" data-open-map="indiana_freeze_date" title="Open figures"><td><a href="https://github.com/martialsystems/indiana_freeze_date">First and last 32 F <code class="slug">indiana_freeze_date</code></a></td><td><span class="chip chip-locked" title="locked: answered; the split stays">locked</span></td><td>Does last year&#x27;s first/last 32 F date beat the 1991-2020 median date at held-out Indiana GHCND cores?</td><td>Last year MAE 11.7 days vs 1991-2020 median 8.8 fall; 11.4 vs 8.2 spring.</td><td><a href="https://github.com/martialsystems/indiana_freeze_date/commit/28941fb">28941fb</a></td></tr>
+            <tr data-lane="temp" data-open-map="indiana_freeze_date" title="Open figures"><td><a href="trees/indiana_freeze_date/">First and last 32 F</a> <a href="https://github.com/martialsystems/indiana_freeze_date"><code class="slug">indiana_freeze_date</code></a></td><td><span class="chip chip-locked" title="locked: answered; the split stays">locked</span></td><td>Does last year&#x27;s first/last 32 F date beat the 1991-2020 median date at held-out Indiana GHCND cores?</td><td>Last year MAE 11.7 days vs 1991-2020 median 8.8 fall; 11.4 vs 8.2 spring.</td><td><a href="https://github.com/martialsystems/indiana_freeze_date/commit/28941fb">28941fb</a></td></tr>
             <tr data-lane="site"><td><a href="https://github.com/martialsystems/indiana_wx_pages">Official winter pages <code class="slug">indiana_wx_pages</code></a></td><td><span class="chip chip-locked" title="locked: answered; the split stays">locked</span></td><td>Official winter outlook and station normals, plus a ledger of models that did not beat those fields.</td><td>Stage B CPC DJF 2026-27 issued 2026-08-20</td><td><a href="https://github.com/martialsystems/indiana_wx_pages/commit/918adca">918adca</a></td></tr>
           </tbody>
         </table>
@@ -495,7 +495,7 @@
         </figure>
       </article>
       <article class="map-card" data-tree="indiana_freeze_date">
-        <h3><a href="https://github.com/martialsystems/indiana_freeze_date">First and last 32 F</a></h3>
+        <h3><a href="trees/indiana_freeze_date/">First and last 32 F</a></h3>
         <p class="slug-line"><code>indiana_freeze_date</code></p>
         <p>Does last year&#x27;s first/last 32 F date beat the 1991-2020 median date at held-out Indiana GHCND cores?</p>
         <p>Status: locked (answered; the split stays)</p>

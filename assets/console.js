@@ -149,6 +149,29 @@
   }
 
   function onReady() {
+    if (document.body.classList.contains("tree-page")) {
+      document.addEventListener("click", function (ev) {
+        if (hrefAnchor(ev.target) && !ev.target.closest("img.zoom")) {
+          return;
+        }
+        var zoom = ev.target.closest("img.zoom");
+        if (zoom) {
+          ev.preventDefault();
+          openViewer(zoom.getAttribute("src"), zoom.getAttribute("alt") || "");
+          return;
+        }
+        if (ev.target.closest("[data-close-viewer]")) {
+          ev.preventDefault();
+          closeViewer();
+        }
+      });
+      document.addEventListener("keydown", function (ev) {
+        if (ev.key === "Escape") {
+          closeViewer();
+        }
+      });
+      return;
+    }
     showPanel(panelId(location.hash));
     var firstNwm = $(".nwm-table");
     if (firstNwm) {
