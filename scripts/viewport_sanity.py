@@ -63,8 +63,51 @@ def static_errors() -> List[str]:
         errs.append("console.js not linked")
     if "data-go=" not in html:
         errs.append("console nav missing data-go")
-    if not (ROOT / "assets/console.js").is_file():
+    js_path = ROOT / "assets/console.js"
+    if not js_path.is_file():
         errs.append("missing assets/console.js")
+        return errs
+    js = js_path.read_text(encoding="utf-8")
+    errs.extend(catalog_link_errors(html, css, js))
+    return errs
+
+
+def catalog_link_errors(html: str, css: str, js: str) -> List[str]:
+    """GitHub hrefs in catalog/ledger must look like links and must navigate."""
+    errs: List[str] = []
+    cat_start = html.find('id="catalog"')
+    maps_start = html.find('id="maps"')
+    catalog = html[cat_start:maps_start] if cat_start >= 0 and maps_start > cat_start else ""
+    if cat_start < 0:
+        errs.append("catalog panel missing")
+    elif 'href="https://github.com' not in catalog:
+        errs.append("catalog missing GitHub hrefs")
+    if "img.shields.io" in catalog:
+        errs.append("catalog GitHub columns turned into shields badges")
+    led_start = html.find('id="ledger"')
+    nwm_start = html.find('id="nwm"')
+    ledger = html[led_start:nwm_start] if led_start >= 0 and nwm_start > led_start else ""
+    if led_start >= 0 and 'href="https://github.com' not in ledger:
+        errs.append("ledger missing GitHub hrefs")
+    if "#catalog a" not in css or "#ledger a" not in css or ".map-card h3 a" not in css:
+        errs.append("CSS missing #catalog a / #ledger a / .map-card h3 a")
+    block = ""
+    idx = css.find("#catalog a")
+    if idx >= 0:
+        brace = css.find("{", idx)
+        end = css.find("}", brace) if brace >= 0 else -1
+        if brace >= 0 and end > brace:
+            block = css[brace + 1 : end]
+    if "underline" not in block:
+        errs.append("#catalog a missing text-decoration underline")
+    if "#5a2a16" not in block:
+        errs.append("#catalog a missing link color #5a2a16")
+    if "color: inherit" in block:
+        errs.append("#catalog a still color: inherit")
+    if 'closest("a[href]")' not in js and "closest('a[href]')" not in js:
+        errs.append("console.js missing a[href] closest guard")
+    if '"catalog"' not in js:
+        errs.append("console.js PANELS missing catalog")
     return errs
 
 
@@ -74,6 +117,73 @@ def _serve(root: Path) -> Tuple[ThreadingHTTPServer, int]:
     t = threading.Thread(target=httpd.serve_forever, daemon=True)
     t.start()
     return httpd, int(httpd.server_address[1])
+
+
+def chrome_catalog_nav(chrome: str, url: str) -> List[str]:
+    """#catalog hash shows Catalog; GitHub <a> clicks are not preventDefaulted."""
+    errs: List[str] = []
+    with tempfile.TemporaryDirectory(prefix="wx-cdp-cat-") as tmp:
+        user = Path(tmp) / "profile"
+        user.mkdir()
+        port = _free_port()
+        cmd = [
+            chrome,
+            "--headless=new",
+            "--disable-gpu",
+            "--remote-debugging-port={0}".format(port),
+            "--user-data-dir={0}".format(user),
+            "--window-size=1280,800",
+            url,
+        ]
+        proc = subprocess.Popen(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        try:
+            ws = _wait_page_ws(port, timeout=12.0)
+            if not ws:
+                return ["no CDP page for catalog nav"]
+            data = _cdp_catalog_nav(ws)
+            if data is None:
+                return ["CDP catalog nav evaluate failed"]
+            if not data.get("catOn") or data.get("outOn"):
+                errs.append(
+                    "#catalog hash did not show catalog panel (catOn={0} outOn={1} href={2} ready={3} body={4})".format(
+                        data.get("catOn"),
+                        data.get("outOn"),
+                        data.get("hrefNow"),
+                        data.get("ready"),
+                        data.get("bodyLen"),
+                    )
+                )
+            if not data.get("hasA") or "github.com" not in str(data.get("href") or ""):
+                errs.append("catalog GitHub <a href> missing in live DOM")
+            color = str(data.get("color") or "")
+            if "90, 42, 22" not in color and "90,42,22" not in color:
+                errs.append("catalog <a> computed color is not #5a2a16 ({0})".format(color))
+            deco = str(data.get("deco") or "").lower()
+            if "underline" not in deco:
+                errs.append("catalog <a> computed text-decoration is not underline ({0})".format(deco))
+            if not data.get("slugCovered"):
+                errs.append("code.slug is not inside a[href]")
+            if data.get("prevented") is True:
+                errs.append("click on catalog GitHub link (or slug) was preventDefaulted")
+            if data.get("panelAfterLink") and data.get("panelAfterLink") != "catalog":
+                errs.append(
+                    "catalog GitHub click switched panel to {0}".format(data.get("panelAfterLink"))
+                )
+            if data.get("panelAfterRow") not in (None, "maps"):
+                errs.append(
+                    "non-link catalog row click did not open maps ({0})".format(
+                        data.get("panelAfterRow")
+                    )
+                )
+            elif data.get("hasOpenMap") and data.get("panelAfterRow") != "maps":
+                errs.append("non-link catalog row click did not open maps")
+        finally:
+            proc.terminate()
+            try:
+                proc.wait(timeout=3)
+            except subprocess.TimeoutExpired:
+                proc.kill()
+    return errs
 
 
 def chrome_same_origin_width(chrome: str, url: str, width: int, height: int) -> List[str]:
@@ -183,6 +293,91 @@ def _cdp_widths(ws_url: str) -> Tuple[Optional[int], Optional[int]]:
         return int(data["sw"]), int(data["iw"])
     except Exception:
         return None, None
+
+
+def _cdp_catalog_nav(ws_url: str):
+    try:
+        cdp = _Cdp(ws_url)
+        cdp.call("Page.enable")
+        cdp.call("Runtime.enable")
+        cdp.call("Page.reload", {"ignoreCache": True})
+        time.sleep(0.6)
+        result = cdp.call(
+            "Runtime.evaluate",
+            {
+                "expression": (
+                    "(async () => {"
+                    " const waitFor = async (fn) => {"
+                    "  const t = Date.now() + 4000;"
+                    "  while (Date.now() < t) { if (fn()) return true; await new Promise(r => setTimeout(r, 50)); }"
+                    "  return !!fn();"
+                    " };"
+                    " await waitFor(() => !!document.getElementById('catalog'));"
+                    " location.hash = 'outlook';"
+                    " await new Promise(r => setTimeout(r, 60));"
+                    " location.hash = 'catalog';"
+                    " await waitFor(() => {"
+                    "  const el = document.querySelector('[data-panel=\"catalog\"]');"
+                    "  return !!(el && el.classList.contains('is-on'));"
+                    " });"
+                    " const cat = document.querySelector('[data-panel=\"catalog\"]');"
+                    " const out = document.querySelector('[data-panel=\"outlook\"]');"
+                    " const catOn = !!(cat && cat.classList.contains('is-on'));"
+                    " const outOn = !!(out && out.classList.contains('is-on'));"
+                    " const hrefAfterHash = String(location.href);"
+                    " const a = document.querySelector('#catalog a[href*=\"github.com\"]');"
+                    " const slug = a && a.querySelector('code.slug');"
+                    " const cs = a ? getComputedStyle(a) : {};"
+                    " let prevented = null;"
+                    " let panelAfterLink = null;"
+                    " if (a) {"
+                    "  const hit = slug || a;"
+                    "  const spy = function (e) {"
+                    "   prevented = e.defaultPrevented;"
+                    "   const on = document.querySelector('[data-panel].is-on');"
+                    "   panelAfterLink = on ? on.getAttribute('data-panel') : null;"
+                    "   e.preventDefault();"
+                    "  };"
+                    "  document.addEventListener('click', spy);"
+                    "  hit.dispatchEvent(new MouseEvent('click', {bubbles:true, cancelable:true, view:window}));"
+                    "  document.removeEventListener('click', spy);"
+                    " }"
+                    " let panelAfterRow = null;"
+                    " const tr = document.querySelector('#catalog tr[data-open-map]');"
+                    " const hasOpenMap = !!tr;"
+                    " if (tr) {"
+                    "  const cell = [...tr.children].find(td => !td.querySelector('a'));"
+                    "  if (cell) {"
+                    "   const spy2 = function (e) { e.preventDefault(); };"
+                    "   document.addEventListener('click', spy2);"
+                    "   cell.dispatchEvent(new MouseEvent('click', {bubbles:true, cancelable:true, view:window}));"
+                    "   document.removeEventListener('click', spy2);"
+                    "   const on = document.querySelector('[data-panel].is-on');"
+                    "   panelAfterRow = on ? on.getAttribute('data-panel') : null;"
+                    "  }"
+                    " }"
+                    " return {catOn: catOn, outOn: outOn,"
+                    "  hasA: !!a, href: a ? (a.getAttribute('href') || '') : '',"
+                    "  color: cs.color || '', deco: (cs.textDecorationLine || cs.textDecoration || ''),"
+                    "  slugCovered: !!(slug && slug.closest('a[href]')),"
+                    "  prevented, panelAfterLink, panelAfterRow, hasOpenMap,"
+                    "  hrefNow: hrefAfterHash, ready: document.readyState,"
+                    "  bodyLen: document.body ? document.body.innerHTML.length : -1};"
+                    "})()"
+                ),
+                "awaitPromise": True,
+                "returnByValue": True,
+            },
+        )
+        cdp.close()
+        value = result.get("result", {}).get("value")
+        if isinstance(value, dict):
+            return value
+        if isinstance(value, str):
+            return json.loads(value)
+        return None
+    except Exception:
+        return None
 
 
 class _Cdp:
@@ -310,6 +505,7 @@ def main() -> int:
         try:
             for w, h in (PHONE, DESKTOP):
                 errs.extend(chrome_same_origin_width(chrome, url, w, h))
+            errs.extend(chrome_catalog_nav(chrome, url + "#catalog"))
         finally:
             httpd.shutdown()
     else:

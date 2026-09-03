@@ -287,6 +287,17 @@ a {
   color: inherit;
   overflow-wrap: anywhere;
 }
+#catalog a,
+#ledger a,
+.map-card h3 a {
+  color: #5a2a16;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+#catalog a code.slug,
+#ledger a code.slug {
+  color: inherit;
+}
 #catalog-q {
   width: 100%;
   max-width: 22rem;

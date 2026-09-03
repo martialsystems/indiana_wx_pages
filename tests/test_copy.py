@@ -85,6 +85,22 @@ def test_index_lead_cpc_and_cores() -> None:
     assert "Indiana will freeze on" not in html
     assert "indiana_freeze_date" not in outlook
     assert "median date" not in outlook
+    catalog = html[html.find('id="catalog"') : html.find('id="maps"')]
+    ledger = html[html.find('id="ledger"') : html.find('id="nwm"')]
+    assert 'href="https://github.com/martialsystems/' in catalog
+    assert 'href="https://github.com/martialsystems/' in ledger
+    assert "img.shields.io" not in catalog
+    css = (ROOT / "assets/style.css").read_text(encoding="utf-8")
+    js = (ROOT / "assets/console.js").read_text(encoding="utf-8")
+    assert "#catalog a" in css and "#ledger a" in css and ".map-card h3 a" in css
+    idx = css.find("#catalog a")
+    brace = css.find("{", idx)
+    block = css[brace : css.find("}", brace) + 1]
+    assert "#5a2a16" in block
+    assert "underline" in block
+    assert "color: inherit" not in block
+    assert 'closest("a[href]")' in js
+    assert 'data-panel="catalog"' in html
 
 
 def test_methodology_names_stages() -> None:

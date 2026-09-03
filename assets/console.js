@@ -90,7 +90,7 @@
   }
 
   function filterCatalog() {
-    var laneBtn = $("[data-lane].is-on");
+    var laneBtn = $(".lane-keys [data-lane].is-on");
     var lane = laneBtn ? laneBtn.getAttribute("data-lane") : "all";
     var qEl = $("#catalog-q");
     var q = qEl ? qEl.value.toLowerCase() : "";
@@ -101,6 +101,20 @@
       var qOk = !q || text.indexOf(q) >= 0;
       row.hidden = !(laneOk && qOk);
     });
+  }
+
+  function hrefAnchor(from) {
+    var el = from;
+    if (!el) {
+      return null;
+    }
+    if (el.nodeType === 3) {
+      el = el.parentElement;
+    }
+    if (!el || !el.closest) {
+      return null;
+    }
+    return el.closest("a[href]");
   }
 
   function openViewer(src, caption) {
@@ -146,13 +160,17 @@
     }
 
     document.addEventListener("click", function (ev) {
+      // Catalog/ledger GitHub links (including <code class="slug"> inside <a>).
+      if (hrefAnchor(ev.target)) {
+        return;
+      }
       var go = ev.target.closest("[data-go]");
       if (go) {
         ev.preventDefault();
         showPanel(go.getAttribute("data-go"));
         var lane = go.getAttribute("data-lane");
         if (lane) {
-          $all("[data-lane]").forEach(function (b) {
+          $all(".lane-keys [data-lane]").forEach(function (b) {
             b.classList.toggle("is-on", b.getAttribute("data-lane") === lane);
           });
           filterCatalog();
@@ -173,17 +191,17 @@
         showMap(mapBtn.getAttribute("data-map"));
         return;
       }
-      var lane = ev.target.closest("[data-lane]");
+      var lane = ev.target.closest(".lane-keys [data-lane]");
       if (lane) {
         ev.preventDefault();
-        $all("[data-lane]").forEach(function (b) {
+        $all(".lane-keys [data-lane]").forEach(function (b) {
           b.classList.toggle("is-on", b === lane);
         });
         filterCatalog();
         return;
       }
       var cat = ev.target.closest("[data-open-map]");
-      if (cat && !ev.target.closest("a")) {
+      if (cat) {
         ev.preventDefault();
         showPanel("maps");
         showMap(cat.getAttribute("data-open-map"));
