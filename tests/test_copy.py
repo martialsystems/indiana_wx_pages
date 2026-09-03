@@ -64,6 +64,13 @@ def test_index_lead_cpc_and_cores() -> None:
     assert "HGB" not in outlook
     assert "Ridge" in rest
     assert "HGB" in rest
+    assert "indiana_freeze_date" in rest
+    assert "28941fb" in rest
+    assert "11.7" in rest
+    assert "frost outlook" not in html.lower()
+    assert "Indiana will freeze on" not in html
+    assert "indiana_freeze_date" not in outlook
+    assert "median date" not in outlook
 
 
 def test_readme() -> None:

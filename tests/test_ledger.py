@@ -14,7 +14,7 @@ def test_ledger_rows_in_html() -> None:
     html = (ROOT / "index.html").read_text(encoding="utf-8")
     assert ledger["caption"] in html
     assert "Details stay in the linked repos." in ledger["caption"]
-    assert len(ledger["rows"]) == 4
+    assert len(ledger["rows"]) == 5
     for rec in ledger["rows"]:
         assert rec["bar"] in html
         assert rec["held_out"] in html

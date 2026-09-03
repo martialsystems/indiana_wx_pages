@@ -44,6 +44,17 @@
       "science_sha": "6b47f21",
       "commit_url": "https://github.com/martialsystems/indiana_winter_lake_miss/commit/6b47f21",
       "gist_url": "https://gist.github.com/martialsystems/b5f900aad37487bb8c0206a321c1ed5c"
+    },
+    {
+      "id": "freeze-date",
+      "tree": "indiana_freeze_date",
+      "tree_url": "https://github.com/martialsystems/indiana_freeze_date",
+      "question": "Does last year's first/last 32 °F date beat the 1991-2020 median date at held-out Indiana GHCND cores?",
+      "bar": "1991-2020 median date",
+      "held_out": "Last year MAE 11.7 vs median 8.8 fall; 11.4 vs 8.2 spring.",
+      "science_sha": "28941fb",
+      "commit_url": "https://github.com/martialsystems/indiana_freeze_date/commit/28941fb",
+      "gist_url": "https://gist.github.com/martialsystems/e5de316dbb5f672573906572730e3735"
     }
   ]
 }

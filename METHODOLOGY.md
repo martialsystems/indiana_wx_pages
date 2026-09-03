@@ -66,4 +66,4 @@ Light: pytest that (1) ledger SHAs match `data/ledger.json` once B exists, (2) f
 
 ## Parked
 
-`indiana_djf_snow_tercile` refit, winter page on the snow repo, SPY vol, second paid host, Eagle Creek RMSE on the hero.
+`indiana_djf_snow_tercile` refit, winter page on the snow repo, SPY vol, second paid host, Eagle Creek RMSE on the hero, a frost-date hero. Freeze-date `28941fb` is a ledger row against the 1991-2020 median date.

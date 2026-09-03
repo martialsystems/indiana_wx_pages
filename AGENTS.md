@@ -12,7 +12,7 @@ Rebuild the page from JSON:
 python3 scripts/build_page.py
 ```
 
-Do not restamp frozen science trees (`ac36f0f`, `1416da1`, `6b47f21`, `9aa7935`). Do not chase 0.009 in of RMSE, a 0.03 range bump, or a 0.016 winter lake bump.
+Do not restamp frozen science trees (`ac36f0f`, `1416da1`, `6b47f21`, `9aa7935`, `28941fb`). Do not chase 0.009 in of RMSE, a 0.03 range bump, or a 0.016 winter lake bump. Freeze-date is a ledger no against the median date, not a frost hero.
 
 Slogan banners stay off the page.
 
