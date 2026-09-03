@@ -69,6 +69,22 @@ def static_errors() -> List[str]:
         return errs
     js = js_path.read_text(encoding="utf-8")
     errs.extend(catalog_link_errors(html, css, js))
+    start = html.find('id="home"')
+    end = html.find('id="outlook"')
+    home = html[start:end] if start >= 0 and end > start else ""
+    if 'class="bubble-tree"' not in home:
+        errs.append("home missing bubble-tree")
+    if "flowchart TD" in home or 'class="mermaid"' in home:
+        errs.append("home still ships mermaid source instead of HTML bubbles")
+    if "cdn.jsdelivr.net/npm/mermaid" in js:
+        errs.append("console.js still loads mermaid CDN")
+    if ".bubble {" not in css or "border-radius: 999px" not in css:
+        errs.append("CSS missing stadium bubble pills")
+    if "First and last 32 F" not in home or "trees/indiana_freeze_date/" not in home:
+        errs.append("bubble tree missing First and last 32 F write-up")
+    pills = home.count('<a class="bubble') + home.count('<span class="bubble')
+    if pills < 20:
+        errs.append("bubble tree too small: {0} pills".format(pills))
     tree = ROOT / "trees" / "indiana_freeze_date" / "index.html"
     if not tree.is_file():
         errs.append("missing trees/indiana_freeze_date/index.html")
@@ -201,6 +217,66 @@ def chrome_catalog_nav(chrome: str, url: str) -> List[str]:
     return errs
 
 
+def chrome_home_bubbles(chrome: str, url: str, width: int, height: int) -> List[str]:
+    """Home panel draws stadium pills, not mermaid source."""
+    errs: List[str] = []
+    with tempfile.TemporaryDirectory(prefix="wx-cdp-bub-") as tmp:
+        user = Path(tmp) / "profile"
+        user.mkdir()
+        port = _free_port()
+        cmd = [
+            chrome,
+            "--headless=new",
+            "--disable-gpu",
+            "--remote-debugging-port={0}".format(port),
+            "--user-data-dir={0}".format(user),
+            "--window-size={0},{1}".format(width, height),
+            url,
+        ]
+        proc = subprocess.Popen(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        try:
+            ws = _wait_page_ws(port, timeout=12.0)
+            if not ws:
+                return ["no CDP page for home bubbles at {0}x{1}".format(width, height)]
+            data = _cdp_home_bubbles(ws)
+            if data is None:
+                return ["CDP home bubbles evaluate failed at {0}x{1}".format(width, height)]
+            if not data.get("homeOn"):
+                errs.append("home panel not on at {0}x{1}".format(width, height))
+            if data.get("mermaid"):
+                errs.append("mermaid source still in live DOM at {0}x{1}".format(width, height))
+            if int(data.get("n") or 0) < 20:
+                errs.append(
+                    "home bubble count {0} at {1}x{2}".format(data.get("n"), width, height)
+                )
+            radius = str(data.get("radius") or "")
+            first = radius.replace("px", " ").split()
+            try:
+                px = float(first[0]) if first else 0.0
+            except ValueError:
+                px = 0.0
+            if px < 16:
+                errs.append(
+                    "home root bubble is not a stadium pill (border-radius {0}) at {1}x{2}".format(
+                        radius, width, height
+                    )
+                )
+            href = str(data.get("freezeHref") or "")
+            if "trees/indiana_freeze_date/" not in href:
+                errs.append(
+                    "First and last 32 F bubble href missing write-up at {0}x{1}: {2}".format(
+                        width, height, href
+                    )
+                )
+        finally:
+            proc.terminate()
+            try:
+                proc.wait(timeout=3)
+            except subprocess.TimeoutExpired:
+                proc.kill()
+    return errs
+
+
 def chrome_same_origin_width(chrome: str, url: str, width: int, height: int) -> List[str]:
     errs: List[str] = []
     with tempfile.TemporaryDirectory(prefix="wx-cdp-") as tmp:
@@ -285,6 +361,46 @@ def chrome_tree_overflow(chrome: str, url: str, width: int, height: int) -> List
             except subprocess.TimeoutExpired:
                 proc.kill()
     return errs
+
+
+def _cdp_home_bubbles(ws_url: str):
+    try:
+        cdp = _Cdp(ws_url)
+        cdp.call("Page.enable")
+        cdp.call("Runtime.enable")
+        cdp.call("Page.reload", {"ignoreCache": True})
+        time.sleep(0.4)
+        result = cdp.call(
+            "Runtime.evaluate",
+            {
+                "expression": (
+                    "(async () => {"
+                    " location.hash = 'home';"
+                    " await new Promise(r => setTimeout(r, 60));"
+                    " const home = document.querySelector('[data-panel=\"home\"]');"
+                    " const pills = [...document.querySelectorAll('.bubble-tree .bubble')];"
+                    " const root = document.querySelector('.bubble-tree .bubble.is-root');"
+                    " const cs = root ? getComputedStyle(root) : {};"
+                    " const freeze = pills.find(el => (el.textContent || '').indexOf('First and last 32 F') >= 0);"
+                    " return {n: pills.length, mermaid: !!document.querySelector('.mermaid'),"
+                    "  radius: cs.borderRadius || '',"
+                    "  freezeHref: freeze ? (freeze.getAttribute('href') || '') : '',"
+                    "  homeOn: !!(home && home.classList.contains('is-on'))};"
+                    "})()"
+                ),
+                "awaitPromise": True,
+                "returnByValue": True,
+            },
+        )
+        cdp.close()
+        value = result.get("result", {}).get("value")
+        if isinstance(value, dict):
+            return value
+        if isinstance(value, str):
+            return json.loads(value)
+        return None
+    except Exception:
+        return None
 
 
 def _cdp_tree_page(ws_url: str):
@@ -597,6 +713,7 @@ def main() -> int:
         try:
             for w, h in (PHONE, DESKTOP):
                 errs.extend(chrome_same_origin_width(chrome, url, w, h))
+                errs.extend(chrome_home_bubbles(chrome, url + "#home", w, h))
             errs.extend(chrome_catalog_nav(chrome, url + "#catalog"))
             tree_url = "http://127.0.0.1:{0}/trees/indiana_freeze_date/".format(port)
             for w, h in (PHONE, DESKTOP):

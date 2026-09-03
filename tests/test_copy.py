@@ -63,8 +63,16 @@ def test_index_lead_cpc_and_cores() -> None:
     assert 'data-go="nwm"' in html
     assert 'data-go="catalog"' in html
     assert 'data-go="maps"' in html
-    assert "flowchart TD" in html
+    assert 'class="bubble-tree"' in html
+    assert "flowchart TD" not in html
+    assert 'class="mermaid"' not in html
     assert "These trees are research" in html
+    home = html[html.find('id="home"') : html.find('id="outlook"')]
+    assert "First and last 32 F" in home
+    assert "trees/indiana_freeze_date/" in home
+    assert "Upper White HAND" in home
+    js = (ROOT / "assets/console.js").read_text(encoding="utf-8")
+    assert "cdn.jsdelivr.net/npm/mermaid" not in js
     assert cpc["issued"] in html
     assert "2026-08-20" in html
     assert cpc["season"] in html
