@@ -1,12 +1,12 @@
 {
-  "caption": "Locked holdouts. Each row is scored against a named bar. Details stay in the linked repos.",
+  "caption": "Locked holdouts. Each row lost to the named bar. Details stay in the linked repos.",
   "rows": [
     {
       "id": "djf-snow",
       "tree": "indiana_djf_snow_tercile",
       "tree_url": "https://github.com/martialsystems/indiana_djf_snow_tercile",
       "question": "Can October features plus ENSO beat the 1991-2020 DJF snowfall normal at held-out Indiana GHCND stations?",
-      "bar": "1991-2020 normal RMSE 13.00 in",
+      "bar": "1991-2020 normal",
       "held_out": "Ridge RMSE 14.48 in vs normal 13.00 in vs last year 10.18 in.",
       "science_sha": "9aa7935",
       "commit_url": "https://github.com/martialsystems/indiana_djf_snow_tercile/commit/9aa7935",
@@ -17,7 +17,7 @@
       "tree": "indiana_cocorahs_mrms",
       "tree_url": "https://github.com/martialsystems/indiana_cocorahs_mrms",
       "question": "Does RadarOnly MRMS match CoCoRaHS daily rain at held-out Indiana stations?",
-      "bar": "RadarOnly RMSE",
+      "bar": "RadarOnly",
       "held_out": "RadarOnly RMSE 0.133 in. HGB 0.141. Ridge 0.124 RMSE then 0.049 MAE against radar 0.048.",
       "science_sha": "ac36f0f",
       "commit_url": "https://github.com/martialsystems/indiana_cocorahs_mrms/commit/ac36f0f",
@@ -28,7 +28,7 @@
       "tree": "indiana_radar_miss",
       "tree_url": "https://github.com/martialsystems/indiana_radar_miss",
       "question": "When does RadarOnly miss CoCoRaHS daily rain at held-out Indiana stations?",
-      "bar": "union wet-day miss ~0.38",
+      "bar": "union miss 0.378",
       "held_out": "Lake 0.375 vs 0.379. Far range 0.403 vs 0.370. HGB Brier 0.226 vs 0.235, AUC 0.59.",
       "science_sha": "1416da1",
       "commit_url": "https://github.com/martialsystems/indiana_radar_miss/commit/1416da1",
@@ -46,34 +46,15 @@
       "gist_url": "https://gist.github.com/martialsystems/b5f900aad37487bb8c0206a321c1ed5c"
     },
     {
-      "id": "cpc-djf-skill",
-      "tree": "indiana_cpc_djf_skill",
-      "tree_url": "https://github.com/martialsystems/indiana_cpc_djf_skill",
-      "question": "Do issued CPC DJF temperature and precipitation outlooks beat climatology at South Bend, Fort Wayne, Indianapolis, and Evansville?",
-      "bar": "equal-chance Brier 0.667",
-      "held_out": "CPC temp Brier 0.643 vs EC 0.667; precip 0.809 vs 0.667.",
-      "science_sha": "eacba62",
-      "commit_url": "https://github.com/martialsystems/indiana_cpc_djf_skill/commit/eacba62"
-    },
-    {
       "id": "freeze-date",
       "tree": "indiana_freeze_date",
       "tree_url": "https://github.com/martialsystems/indiana_freeze_date",
-      "question": "Does last year's first/last 32 F date beat the 1991-2020 median date at held-out Indiana GHCND cores?",
-      "bar": "1991-2020 median MAE",
-      "held_out": "Last year MAE 11.7 days vs 1991-2020 median 8.8 fall; 11.4 vs 8.2 spring.",
+      "question": "Does last year's first/last 32 °F date beat the 1991-2020 median date at held-out Indiana GHCND cores?",
+      "bar": "1991-2020 median date",
+      "held_out": "Last year MAE 11.7 vs median 8.8 fall; 11.4 vs 8.2 spring.",
       "science_sha": "28941fb",
-      "commit_url": "https://github.com/martialsystems/indiana_freeze_date/commit/28941fb"
-    },
-    {
-      "id": "nora-rain",
-      "tree": "white_river_rain_stage",
-      "tree_url": "https://github.com/martialsystems/white_river_rain_stage",
-      "question": "Does rain on the Nora basin help you guess tomorrow's stage?",
-      "bar": "yesterday Nora stage",
-      "held_out": "Persistence RMSE 1.03 ft vs Ridge 3.19 ft.",
-      "science_sha": "e41fd69",
-      "commit_url": "https://github.com/martialsystems/white_river_rain_stage/commit/e41fd69"
+      "commit_url": "https://github.com/martialsystems/indiana_freeze_date/commit/28941fb",
+      "gist_url": "https://gist.github.com/martialsystems/e5de316dbb5f672573906572730e3735"
     }
   ]
 }

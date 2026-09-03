@@ -1,5 +1,5 @@
 # Copyright (c) 2026 Martial Systems LLC
-"""Frozen ledger JSON rows are on the page by tree, SHA, and URLs."""
+"""Ledger JSON rows appear in the page with bar, numbers, and SHA links."""
 
 from __future__ import annotations
 
@@ -14,21 +14,12 @@ def test_ledger_rows_in_html() -> None:
     html = (ROOT / "index.html").read_text(encoding="utf-8")
     assert ledger["caption"] in html
     assert "Details stay in the linked repos." in ledger["caption"]
-    assert len(ledger["rows"]) == 7
-    start = html.find('id="outlook"')
-    end = html.find('id="ledger"')
-    outlook = html[start:end]
-    rest = html[end:]
+    assert len(ledger["rows"]) == 5
     for rec in ledger["rows"]:
-        assert rec["tree"] in rest
-        assert rec["science_sha"] in rest
-        assert rec["commit_url"] in rest
-        assert rec["tree_url"] in rest
+        assert rec["bar"] in html
+        assert rec["held_out"] in html
+        assert rec["science_sha"] in html
+        assert rec["commit_url"] in html
+        assert rec["tree_url"] in html
         assert rec["science_sha"] in rec["commit_url"]
         assert rec["tree"] in rec["tree_url"]
-    assert "indiana_freeze_date" not in outlook
-    assert "11.7" in rest
-    assert "28941fb" in rest
-    assert "indiana_cpc_djf_skill" in rest
-    assert "eacba62" in rest
-    assert "0.643" in rest

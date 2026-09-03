@@ -35,11 +35,9 @@ def test_index_lead_cpc_and_cores() -> None:
     html = (ROOT / "index.html").read_text(encoding="utf-8")
     cpc = json.loads((ROOT / "data/official/cpc.json").read_text(encoding="utf-8"))
     normals = json.loads((ROOT / "data/official/normals.json").read_text(encoding="utf-8"))
-    assert "<h1>Indiana research console</h1>" in html
-    assert "<h1>Indiana Winter Outlook</h1>" not in html
+    assert "<h1>Indiana Winter Outlook</h1>" in html
     assert "<h1>{0}</h1>".format(LEAD) not in html
-    assert LEAD in html
-    assert 'class="lead"' in html
+    assert "<p>{0}</p>".format(LEAD) in html
     assert "<h1>Indiana weather pages</h1>" not in html
     assert "Science stays" not in html
     assert "those trees" not in html
@@ -51,30 +49,7 @@ def test_index_lead_cpc_and_cores() -> None:
     assert "XGBoost" not in html
     assert "What it is not" not in html
     assert "\u2014" not in html
-    assert "assets/console.js" in html
-    assert "This page is the research index" in html
-    assert "Live sibling:" not in html
-    assert "gist 66b896b0" in html
-    assert "https://gist.github.com/martialsystems/66b896b0a4a0b8cba2b478aef64312f3" in html
-    assert "https://github.com/martialsystems/indiana_research_console" in html
-    assert 'data-go="home"' in html
-    assert 'data-go="outlook"' in html
-    assert 'data-go="ledger"' in html
-    assert 'data-go="nwm"' in html
-    assert 'data-go="catalog"' in html
-    assert 'data-go="maps"' in html
-    assert 'class="bubble-tree"' in html
-    assert "flowchart TD" not in html
-    assert 'class="mermaid"' not in html
-    assert "These trees are research" in html
-    home = html[html.find('id="home"') : html.find('id="outlook"')]
-    assert "First and last 32 F" in home
-    assert "trees/indiana_freeze_date/" in home
-    assert "Upper White HAND" in home
-    js = (ROOT / "assets/console.js").read_text(encoding="utf-8")
-    assert "cdn.jsdelivr.net/npm/mermaid" not in js
     assert cpc["issued"] in html
-    assert "2026-08-20" in html
     assert cpc["season"] in html
     assert cpc["next_issue"] in html
     assert cpc["temp_map"] in html
@@ -84,10 +59,7 @@ def test_index_lead_cpc_and_cores() -> None:
     for st in normals["stations"]:
         assert "{0:.1f}".format(st["djf_snow_in"]) in html
     assert _hits(html) == []
-    start = html.find('id="outlook"')
-    end = html.find('id="ledger"')
-    outlook = html[start:end]
-    rest = html[end:]
+    outlook, _, rest = html.partition('id="ledger"')
     assert "Ridge" not in outlook
     assert "HGB" not in outlook
     assert "Ridge" in rest
@@ -99,22 +71,21 @@ def test_index_lead_cpc_and_cores() -> None:
     assert "Indiana will freeze on" not in html
     assert "indiana_freeze_date" not in outlook
     assert "median date" not in outlook
-    catalog = html[html.find('id="catalog"') : html.find('id="maps"')]
-    ledger = html[html.find('id="ledger"') : html.find('id="nwm"')]
-    assert 'href="https://github.com/martialsystems/' in catalog
-    assert 'href="https://github.com/martialsystems/' in ledger
-    assert "img.shields.io" not in catalog
-    css = (ROOT / "assets/style.css").read_text(encoding="utf-8")
-    js = (ROOT / "assets/console.js").read_text(encoding="utf-8")
-    assert "#catalog a" in css and "#ledger a" in css and ".map-card h3 a" in css
-    idx = css.find("#catalog a")
-    brace = css.find("{", idx)
-    block = css[brace : css.find("}", brace) + 1]
-    assert "#5a2a16" in block
-    assert "underline" in block
-    assert "color: inherit" not in block
-    assert 'closest("a[href]")' in js
-    assert 'data-panel="catalog"' in html
+
+
+def test_readme() -> None:
+    text = (ROOT / "README.md").read_text(encoding="utf-8")
+    body = "\n".join(text.splitlines()[1:]).lstrip()
+    assert body.startswith(LEAD)
+    assert "martialsystems.github.io/indiana_wx_pages" in text
+    assert "Stage B" in text
+    assert SLOGAN not in text
+    assert "Science stays" not in text
+    assert "Details stay in the linked repos." in text
+    assert "What it is not" not in text
+    assert _hits(text) == []
+    assert "\u2014" not in text
+    assert "gist.github.com/martialsystems/66b896b0" in text
 
 
 def test_methodology_names_stages() -> None:
@@ -126,4 +97,3 @@ def test_methodology_names_stages() -> None:
     assert NOTICE in text
     assert "https://martialsystems.github.io/indiana_wx_pages/" in text
     assert "\u2014" not in text
-    assert "What it is not" not in text
