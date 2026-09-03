@@ -2,7 +2,7 @@
 
 The live site is the Indiana research console. CPC remains the Official/Winter outlook panel.
 
-Live: https://martialsystems.github.io/indiana_wx_pages/
+[![Open the research console](https://img.shields.io/badge/Open_the_research_console-2e7d32?style=for-the-badge)](https://martialsystems.github.io/indiana_wx_pages/)
 
 Official winter outlook and station normals for Indiana, plus a ledger of models that did not beat those fields.
 
@@ -20,4 +20,4 @@ python3 scripts/viewport_sanity.py
 
 MIT. Martial Systems LLC.
 
-Research index: this page (https://martialsystems.github.io/indiana_wx_pages/). Pointer gist: https://gist.github.com/martialsystems/66b896b0a4a0b8cba2b478aef64312f3
+[![Open the research console](https://img.shields.io/badge/Open_the_research_console-2e7d32?style=for-the-badge)](https://martialsystems.github.io/indiana_wx_pages/)

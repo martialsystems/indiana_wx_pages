@@ -5,10 +5,10 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 FOOTER = (
-    "Research index: this page "
-    "(https://martialsystems.github.io/indiana_wx_pages/). "
-    "Pointer gist: "
-    "https://gist.github.com/martialsystems/66b896b0a4a0b8cba2b478aef64312f3"
+    "[![Open the research console]"
+    "(https://img.shields.io/badge/Open_the_research_console-2e7d32"
+    "?style=for-the-badge)]"
+    "(https://martialsystems.github.io/indiana_wx_pages/)"
 )
 FIRST = (
     "The live site is the Indiana research console. "
@@ -34,9 +34,8 @@ def test_readme() -> None:
     assert "What it is not" not in text
     assert "\u2014" not in text
     assert FOOTER in text
-    tail = text.split("Research index:")[-1]
-    assert "martialsystems.github.io/indiana_wx_pages" in tail
-    assert "66b896b0" in tail
-    assert "Pointer gist:" in tail
+    assert "Research index:" not in text
+    assert "Pointer gist:" not in text
+    assert "66b896b0" not in text
     assert "will get" not in text.lower()
     assert "flood warning" not in text.lower()
