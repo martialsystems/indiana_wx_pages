@@ -2,7 +2,7 @@
 (function () {
   "use strict";
 
-  var PANELS = ["outlook", "ledger", "nwm", "catalog", "maps"];
+  var PANELS = ["home", "outlook", "ledger", "nwm", "catalog", "maps"];
 
   function $(sel, root) {
     return (root || document).querySelector(sel);
@@ -20,7 +20,7 @@
     if (id === "official" || id === "normals") {
       return "outlook";
     }
-    return "outlook";
+    return "home";
   }
 
   function showPanel(id) {
@@ -256,6 +256,35 @@
         closeViewer();
       }
     });
+    bootMermaid();
+  }
+
+  function bootMermaid() {
+    if (!$(".mermaid")) {
+      return;
+    }
+    var s = document.createElement("script");
+    s.src = "https://cdn.jsdelivr.net/npm/mermaid@10.9.3/dist/mermaid.min.js";
+    s.onload = function () {
+      if (!window.mermaid) {
+        return;
+      }
+      window.mermaid.initialize({
+        startOnLoad: false,
+        securityLevel: "loose",
+        theme: "base",
+        themeVariables: {
+          primaryColor: "#e6d5b8",
+          primaryTextColor: "#1a140e",
+          primaryBorderColor: "#b08d4a",
+          lineColor: "#5c5144",
+          secondaryColor: "#f3e6cc",
+          tertiaryColor: "#efe0c2",
+        },
+      });
+      window.mermaid.run({ querySelector: ".mermaid" });
+    };
+    document.head.appendChild(s);
   }
 
   if (document.readyState === "loading") {

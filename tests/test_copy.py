@@ -57,11 +57,14 @@ def test_index_lead_cpc_and_cores() -> None:
     assert "gist 66b896b0" in html
     assert "https://gist.github.com/martialsystems/66b896b0a4a0b8cba2b478aef64312f3" in html
     assert "https://github.com/martialsystems/indiana_research_console" in html
+    assert 'data-go="home"' in html
     assert 'data-go="outlook"' in html
     assert 'data-go="ledger"' in html
     assert 'data-go="nwm"' in html
     assert 'data-go="catalog"' in html
     assert 'data-go="maps"' in html
+    assert "flowchart TD" in html
+    assert "These trees are research" in html
     assert cpc["issued"] in html
     assert "2026-08-20" in html
     assert cpc["season"] in html
@@ -73,7 +76,10 @@ def test_index_lead_cpc_and_cores() -> None:
     for st in normals["stations"]:
         assert "{0:.1f}".format(st["djf_snow_in"]) in html
     assert _hits(html) == []
-    outlook, _, rest = html.partition('id="ledger"')
+    start = html.find('id="outlook"')
+    end = html.find('id="ledger"')
+    outlook = html[start:end]
+    rest = html[end:]
     assert "Ridge" not in outlook
     assert "HGB" not in outlook
     assert "Ridge" in rest

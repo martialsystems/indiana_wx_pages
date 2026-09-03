@@ -19,6 +19,8 @@ def test_freeze_date_page_is_in_the_snapshot() -> None:
     assert "scatter.png" in html
     assert "tree-page" in html
     assert "trees/indiana_freeze_date/" in index
+    assert "../../index.html#home" in html
+    assert 'data-go="home"' in html
     assert "Indiana will freeze on" not in html
     assert "frost outlook" not in html.lower()
     assert "\u2014" not in html

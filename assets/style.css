@@ -334,6 +334,21 @@ tr[data-open-map]:hover {
 #viewer::backdrop {
   background: rgba(20, 16, 10, 0.65);
 }
+.bubble-wrap {
+  overflow-x: auto;
+  max-width: 100%;
+  background: var(--well);
+  border: 1px solid var(--line);
+  padding: 0.6rem;
+  margin: 0 0 0.85rem;
+}
+.bubble-wrap .mermaid {
+  margin: 0;
+}
+.bubble-wrap svg {
+  max-width: 100%;
+  height: auto;
+}
 @media (min-width: 800px) {
   .console-body {
     flex-direction: row;

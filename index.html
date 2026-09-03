@@ -14,18 +14,96 @@
   </header>
   <div class="console-body">
     <nav class="rail" aria-label="Console panels">
-      <button type="button" data-go="outlook" class="is-on" title="CPC winter outlook and snowfall normals">Winter outlook</button>
-      <button type="button" data-go="ledger" title="Studies that lost to a named bar">Ledger</button>
-      <button type="button" data-go="nwm" title="Three National Water Model files">NWM</button>
-      <button type="button" data-go="catalog" title="Every study, one row">Catalog</button>
-      <button type="button" data-go="maps" title="Committed figures">Maps</button>
+      <a href="#home" data-go="home" class="is-on" aria-current="page" title="Intro and relationship tree">Home</a><a href="#outlook" data-go="outlook" title="CPC winter outlook and snowfall normals">Winter outlook</a><a href="#ledger" data-go="ledger" title="Studies that lost to a named bar">Ledger</a><a href="#nwm" data-go="nwm" title="Three National Water Model files">NWM</a><a href="#catalog" data-go="catalog" title="Every study, one row">Catalog</a><a href="#maps" data-go="maps" title="Committed figures">Maps</a>
     </nav>
     <div class="work">
     <div class="how">
       <p class="kicker">How to read</p>
-      <p>Start on Winter outlook. That panel is the CPC seasonal outlook and the 1991-2020 snowfall normals. Ledger lists studies that lost to a named bar. NWM is three separate river-model files; do not mix the tables. Catalog is one row per study. Maps holds up to two committed figures per study. Status words: locked means the question is answered; parked means the official layer is empty; stop means the window does not overlap.</p>
+      <p>Start on Home. That panel is the intro and the relationship tree that used to live on gist 66b896b0. Winter outlook is the CPC seasonal outlook and the 1991-2020 snowfall normals. Ledger lists studies that lost to a named bar. NWM is three separate river-model files; do not mix the tables. Catalog is one row per study. Maps holds up to two committed figures per study. Status words: locked means the question is answered; parked means the official layer is empty; stop means the window does not overlap.</p>
     </div>
-    <section id="outlook" data-panel="outlook" class="is-on">
+    <section id="home" data-panel="home" class="is-on">
+      <p class="kicker">Indiana research</p>
+      <h2>What this is</h2>
+      <p class="read-this">These trees are research. Each one asks one question, locks a split, and stops. White River is one lane, not the lab. This console is the readable index: purpose, the bubble tree, lane write-ups, and the catalog.</p>
+      <p>Lane write-ups stay on their gists. Home holds the relationship tree. Catalog is the table. Winter outlook is CPC plus 1991-2020 normals, not a freeze-date hero.</p>
+      <h3>How they relate</h3>
+      <p>Each bubble is one locked tree or a lane. Click a study bubble to open GitHub, or First and last 32 F for its Pages write-up.</p>
+      <div class="bubble-wrap">
+        <pre class="mermaid">flowchart TD
+  R["Indiana research"]
+  R --> M["Maps"]
+  R --> Q["White River Q"]
+  R --> P["Precip"]
+  R --> T["Temp"]
+  R --> S["Site"]
+  M --> UW["Upper White HAND"]
+  UW --> M1["Upper White floodplain completion"]
+  UW --> M2["Nora wet cells at two stages"]
+  M2 --> M3["Nora HAND vs USGS FIM"]
+  UW --> M4["August 2026 high-water marks"]
+  M --> CAL["Calumet floodplain completion"]
+  CAL --> CALF["Calumet FIM compare"]
+  Q --> Q1["Rain to Nora stage"]
+  Q --> Q2["NWM v2.1 vs yesterday"]
+  Q --> Q2b["NWM analysis 2025-26"]
+  Q --> Q2c["NWM medium-range +24 h"]
+  Q2 --> Q3["Anderson to Nora"]
+  Q3 --> Q4["Fall Creek at Indianapolis"]
+  Q4 --> Q5["Eagle Creek vs Nora plus Fall Creek"]
+  Q4 --> Q6["Eagle Creek vs yesterday"]
+  P --> P1["Radar vs rain gauges"]
+  P1 --> P2["Summer radar misses"]
+  P2 --> P3["Winter lake radar misses"]
+  P --> P4["Winter snow vs the normal"]
+  P --> P5["NWI lake-belt snow"]
+  T --> T1["First and last 32 F"]
+  T --> T2["October plus ENSO freeze dates"]
+  T --> T3["Indiana CPC DJF skill"]
+  S --> S1["Official winter pages"]
+  S --> S2["indiana_research_console"]
+  click M1 href "https://github.com/martialsystems/indiana_flood_completion"
+  click M2 href "https://github.com/martialsystems/white_river_stage_inundation"
+  click M3 href "https://github.com/martialsystems/white_river_fim_compare"
+  click M4 href "https://github.com/martialsystems/white_river_hwm_crest"
+  click CAL href "https://github.com/martialsystems/calumet_flood_completion"
+  click CALF href "https://github.com/martialsystems/calumet_fim_or_stop"
+  click Q1 href "https://github.com/martialsystems/white_river_rain_stage"
+  click Q2 href "https://github.com/martialsystems/white_river_nwm_error"
+  click Q2b href "https://github.com/martialsystems/nwm_ana_2025_26"
+  click Q2c href "https://github.com/martialsystems/nwm_forecast_lead_white_river"
+  click Q3 href "https://github.com/martialsystems/white_river_anderson_nora"
+  click Q4 href "https://github.com/martialsystems/white_river_fall_creek_gap"
+  click Q5 href "https://github.com/martialsystems/white_river_eagle_creek_gap"
+  click Q6 href "https://github.com/martialsystems/white_river_eagle_persistence"
+  click P1 href "https://github.com/martialsystems/indiana_cocorahs_mrms"
+  click P2 href "https://github.com/martialsystems/indiana_radar_miss"
+  click P3 href "https://github.com/martialsystems/indiana_winter_lake_miss"
+  click P4 href "https://github.com/martialsystems/indiana_djf_snow_tercile"
+  click P5 href "https://github.com/martialsystems/nwi_lake_effect_snow"
+  click T1 href "trees/indiana_freeze_date/"
+  click T2 href "https://github.com/martialsystems/indiana_freeze_enso"
+  click T3 href "https://github.com/martialsystems/indiana_cpc_djf_skill"
+  click S1 href "https://github.com/martialsystems/indiana_wx_pages"
+  click S2 href "https://github.com/martialsystems/indiana_research_console"
+</pre>
+      </div>
+      <h3>Lane write-ups</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Lane</th><th>Gist</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Maps</td><td><a href="https://gist.github.com/martialsystems/16584e78d079666f7e8994b4cc6158be">Upper White River</a></td></tr>
+            <tr><td>White River Q</td><td><a href="https://gist.github.com/martialsystems/1104e5e47b8a04006ec694d289d43639">White River hydrology</a></td></tr>
+            <tr><td>Precip</td><td><a href="https://gist.github.com/martialsystems/b5f900aad37487bb8c0206a321c1ed5c">Indiana precip</a></td></tr>
+            <tr><td>Temp</td><td><a href="https://gist.github.com/martialsystems/e5de316dbb5f672573906572730e3735">Indiana temp</a></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="outlook" data-panel="outlook">
       <p class="kicker">Official fields</p>
       <p class="read-this">This is the current CPC seasonal outlook for Indiana and the station snowfall normals those studies are scored against. Models that lost sit on Ledger, not here.</p>
       <h2>CPC DJF 2026-27 issued 2026-08-20</h2>
@@ -225,7 +303,7 @@
             <tr data-lane="precip" data-open-map="indiana_radar_miss" title="Open figures"><td><a href="https://github.com/martialsystems/indiana_radar_miss">Summer radar misses <code class="slug">indiana_radar_miss</code></a></td><td><span class="chip chip-locked" title="locked: answered; the split stays">locked</span></td><td>When does RadarOnly miss CoCoRaHS daily rain at held-out Indiana stations?</td><td>Lake 0.375 vs 0.379. Far range 0.403 vs 0.370. HGB Brier 0.226 vs 0.235, AUC 0.59.</td><td><a href="https://github.com/martialsystems/indiana_radar_miss/commit/1416da1">1416da1</a></td></tr>
             <tr data-lane="precip" data-open-map="indiana_winter_lake_miss" title="Open figures"><td><a href="https://github.com/martialsystems/indiana_winter_lake_miss">Winter lake radar misses <code class="slug">indiana_winter_lake_miss</code></a></td><td><span class="chip chip-locked" title="locked: answered; the split stays">locked</span></td><td>Does the RadarOnly miss rate jump in the northwest lake sector in winter?</td><td>NDJFM lake 0.391 vs 0.375. Union 0.377 vs JJA 0.378.</td><td><a href="https://github.com/martialsystems/indiana_winter_lake_miss/commit/6b47f21">6b47f21</a></td></tr>
             <tr data-lane="precip" data-open-map="nwi_lake_effect_snow" title="Open figures"><td><a href="https://github.com/martialsystems/nwi_lake_effect_snow">NWI lake-belt snow <code class="slug">nwi_lake_effect_snow</code></a></td><td><span class="chip chip-locked" title="locked: answered; the split stays">locked</span></td><td>Does the NWI lake belt get more NDJFM snow days and snow inches than inland Indiana on the same winters?</td><td>+31.81 in / +9.55 days vs Indy. Michigan City USC00125604 and Valparaiso USW00004846: no complete NDJFM SNOW, not scored.</td><td><a href="https://github.com/martialsystems/nwi_lake_effect_snow/commit/82ce0ce">82ce0ce</a></td></tr>
-            <tr data-lane="temp" data-open-map="indiana_cpc_djf_skill" title="Open figures"><td><a href="https://github.com/martialsystems/indiana_cpc_djf_skill">indiana cpc djf skill <code class="slug">indiana_cpc_djf_skill</code></a></td><td><span class="chip chip-locked" title="locked: answered; the split stays">locked</span></td><td>Do issued CPC DJF temperature and precipitation outlooks beat climatology at South Bend, Fort Wayne, Indianapolis, and Evansville?</td><td>CPC temp Brier 0.643 vs EC 0.667; precip 0.809 vs 0.667.</td><td><a href="https://github.com/martialsystems/indiana_cpc_djf_skill/commit/eacba62">eacba62</a></td></tr>
+            <tr data-lane="temp" data-open-map="indiana_cpc_djf_skill" title="Open figures"><td><a href="https://github.com/martialsystems/indiana_cpc_djf_skill">Indiana CPC DJF skill <code class="slug">indiana_cpc_djf_skill</code></a></td><td><span class="chip chip-locked" title="locked: answered; the split stays">locked</span></td><td>Do issued CPC DJF temperature and precipitation outlooks beat climatology at South Bend, Fort Wayne, Indianapolis, and Evansville?</td><td>CPC temp Brier 0.643 vs EC 0.667; precip 0.809 vs 0.667.</td><td><a href="https://github.com/martialsystems/indiana_cpc_djf_skill/commit/eacba62">eacba62</a></td></tr>
             <tr data-lane="temp" data-open-map="indiana_freeze_date" title="Open figures"><td><a href="trees/indiana_freeze_date/">First and last 32 F</a> <a href="https://github.com/martialsystems/indiana_freeze_date"><code class="slug">indiana_freeze_date</code></a></td><td><span class="chip chip-locked" title="locked: answered; the split stays">locked</span></td><td>Does last year&#x27;s first/last 32 F date beat the 1991-2020 median date at held-out Indiana GHCND cores?</td><td>Last year MAE 11.7 days vs 1991-2020 median 8.8 fall; 11.4 vs 8.2 spring.</td><td><a href="https://github.com/martialsystems/indiana_freeze_date/commit/28941fb">28941fb</a></td></tr>
             <tr data-lane="site"><td><a href="https://github.com/martialsystems/indiana_wx_pages">Official winter pages <code class="slug">indiana_wx_pages</code></a></td><td><span class="chip chip-locked" title="locked: answered; the split stays">locked</span></td><td>Official winter outlook and station normals, plus a ledger of models that did not beat those fields.</td><td>Stage B CPC DJF 2026-27 issued 2026-08-20</td><td><a href="https://github.com/martialsystems/indiana_wx_pages/commit/918adca">918adca</a></td></tr>
           </tbody>
@@ -237,7 +315,7 @@
       <h2>Maps</h2>
       <p class="read-this">These are committed figures from the pinned studies: floodplain maps, hydrographs, and station plots. Click a name, then click a figure to enlarge. Two figures max per study.</p>
       <p>Click a tree, then click a figure to enlarge. Two figures max per tree.</p>
-      <div class="map-keys"><button type="button" class="is-on" data-map="calumet_fim_or_stop">Calumet FIM compare</button><button type="button" class="map-key" data-map="indiana_flood_completion">Upper White floodplain completion</button><button type="button" class="map-key" data-map="white_river_fim_compare">Nora HAND vs USGS FIM</button><button type="button" class="map-key" data-map="white_river_hwm_crest">August 2026 high-water marks</button><button type="button" class="map-key" data-map="white_river_stage_inundation">Nora wet cells at two stages</button><button type="button" class="map-key" data-map="nwm_ana_2025_26">NWM analysis 2025-26</button><button type="button" class="map-key" data-map="nwm_forecast_lead_white_river">NWM medium-range +24 h</button><button type="button" class="map-key" data-map="white_river_anderson_nora">Anderson to Nora</button><button type="button" class="map-key" data-map="white_river_eagle_creek_gap">Eagle Creek vs Nora plus Fall Creek</button><button type="button" class="map-key" data-map="white_river_eagle_persistence">Eagle Creek vs yesterday</button><button type="button" class="map-key" data-map="white_river_fall_creek_gap">Fall Creek at Indianapolis</button><button type="button" class="map-key" data-map="white_river_nwm_error">NWM v2.1 vs yesterday</button><button type="button" class="map-key" data-map="white_river_rain_stage">Rain to Nora stage</button><button type="button" class="map-key" data-map="indiana_cocorahs_mrms">Radar vs rain gauges</button><button type="button" class="map-key" data-map="indiana_djf_snow_tercile">Winter snow vs the normal</button><button type="button" class="map-key" data-map="indiana_radar_miss">Summer radar misses</button><button type="button" class="map-key" data-map="indiana_winter_lake_miss">Winter lake radar misses</button><button type="button" class="map-key" data-map="nwi_lake_effect_snow">NWI lake-belt snow</button><button type="button" class="map-key" data-map="indiana_cpc_djf_skill">indiana cpc djf skill</button><button type="button" class="map-key" data-map="indiana_freeze_date">First and last 32 F</button></div>
+      <div class="map-keys"><button type="button" class="is-on" data-map="calumet_fim_or_stop">Calumet FIM compare</button><button type="button" class="map-key" data-map="indiana_flood_completion">Upper White floodplain completion</button><button type="button" class="map-key" data-map="white_river_fim_compare">Nora HAND vs USGS FIM</button><button type="button" class="map-key" data-map="white_river_hwm_crest">August 2026 high-water marks</button><button type="button" class="map-key" data-map="white_river_stage_inundation">Nora wet cells at two stages</button><button type="button" class="map-key" data-map="nwm_ana_2025_26">NWM analysis 2025-26</button><button type="button" class="map-key" data-map="nwm_forecast_lead_white_river">NWM medium-range +24 h</button><button type="button" class="map-key" data-map="white_river_anderson_nora">Anderson to Nora</button><button type="button" class="map-key" data-map="white_river_eagle_creek_gap">Eagle Creek vs Nora plus Fall Creek</button><button type="button" class="map-key" data-map="white_river_eagle_persistence">Eagle Creek vs yesterday</button><button type="button" class="map-key" data-map="white_river_fall_creek_gap">Fall Creek at Indianapolis</button><button type="button" class="map-key" data-map="white_river_nwm_error">NWM v2.1 vs yesterday</button><button type="button" class="map-key" data-map="white_river_rain_stage">Rain to Nora stage</button><button type="button" class="map-key" data-map="indiana_cocorahs_mrms">Radar vs rain gauges</button><button type="button" class="map-key" data-map="indiana_djf_snow_tercile">Winter snow vs the normal</button><button type="button" class="map-key" data-map="indiana_radar_miss">Summer radar misses</button><button type="button" class="map-key" data-map="indiana_winter_lake_miss">Winter lake radar misses</button><button type="button" class="map-key" data-map="nwi_lake_effect_snow">NWI lake-belt snow</button><button type="button" class="map-key" data-map="indiana_cpc_djf_skill">Indiana CPC DJF skill</button><button type="button" class="map-key" data-map="indiana_freeze_date">First and last 32 F</button></div>
       <article class="map-card is-on" data-tree="calumet_fim_or_stop">
         <h3><a href="https://github.com/martialsystems/calumet_fim_or_stop">Calumet FIM compare</a></h3>
         <p class="slug-line"><code>calumet_fim_or_stop</code></p>
@@ -481,17 +559,17 @@
         </figure>
       </article>
       <article class="map-card" data-tree="indiana_cpc_djf_skill">
-        <h3><a href="https://github.com/martialsystems/indiana_cpc_djf_skill">indiana cpc djf skill</a></h3>
+        <h3><a href="https://github.com/martialsystems/indiana_cpc_djf_skill">Indiana CPC DJF skill</a></h3>
         <p class="slug-line"><code>indiana_cpc_djf_skill</code></p>
         <p>Do issued CPC DJF temperature and precipitation outlooks beat climatology at South Bend, Fort Wayne, Indianapolis, and Evansville?</p>
         <p>Status: locked (answered; the split stays)</p>
         <figure>
-          <img class="zoom" src="assets/trees/indiana_cpc_djf_skill/north_south.png" alt="indiana cpc djf skill: north south">
-          <figcaption>indiana cpc djf skill: north south</figcaption>
+          <img class="zoom" src="assets/trees/indiana_cpc_djf_skill/north_south.png" alt="Indiana CPC DJF skill: north south">
+          <figcaption>Indiana CPC DJF skill: north south</figcaption>
         </figure>
         <figure>
-          <img class="zoom" src="assets/trees/indiana_cpc_djf_skill/skill_bars.png" alt="indiana cpc djf skill: skill bars">
-          <figcaption>indiana cpc djf skill: skill bars</figcaption>
+          <img class="zoom" src="assets/trees/indiana_cpc_djf_skill/skill_bars.png" alt="Indiana CPC DJF skill: skill bars">
+          <figcaption>Indiana CPC DJF skill: skill bars</figcaption>
         </figure>
       </article>
       <article class="map-card" data-tree="indiana_freeze_date">

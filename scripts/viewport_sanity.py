@@ -121,6 +121,8 @@ def catalog_link_errors(html: str, css: str, js: str) -> List[str]:
         errs.append("console.js missing a[href] closest guard")
     if '"catalog"' not in js:
         errs.append("console.js PANELS missing catalog")
+    if '"home"' not in js:
+        errs.append("console.js PANELS missing home")
     return errs
 
 

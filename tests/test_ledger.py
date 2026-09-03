@@ -15,7 +15,10 @@ def test_ledger_rows_in_html() -> None:
     assert ledger["caption"] in html
     assert "Details stay in the linked repos." in ledger["caption"]
     assert len(ledger["rows"]) == 7
-    outlook, _, rest = html.partition('id="ledger"')
+    start = html.find('id="outlook"')
+    end = html.find('id="ledger"')
+    outlook = html[start:end]
+    rest = html[end:]
     for rec in ledger["rows"]:
         assert rec["tree"] in rest
         assert rec["science_sha"] in rest
