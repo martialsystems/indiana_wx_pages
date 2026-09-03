@@ -3,28 +3,44 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Indiana Winter Outlook</title>
+  <title>Indiana research console</title>
   <link rel="stylesheet" href="assets/style.css">
 </head>
-<body>
-  <main>
-    <h1>Indiana Winter Outlook</h1>
-    <p>Official winter outlook and station normals for Indiana, plus a ledger of models that did not beat those fields.</p>
-
-    <section id="outlook">
-      <h2>CPC DJF 2026-27</h2>
+<body class="console">
+  <header class="console-head">
+    <p class="plate">Martial Systems lab</p>
+    <h1>Indiana research console</h1>
+    <p class="lead">Official winter outlook and station normals for Indiana, plus a ledger of models that did not beat those fields.</p>
+  </header>
+  <div class="console-body">
+    <nav class="rail" aria-label="Console panels">
+      <button type="button" data-go="outlook" class="is-on" title="CPC winter outlook and snowfall normals">Winter outlook</button>
+      <button type="button" data-go="ledger" title="Studies that lost to a named bar">Ledger</button>
+      <button type="button" data-go="nwm" title="Three National Water Model files">NWM</button>
+      <button type="button" data-go="catalog" title="Every study, one row">Catalog</button>
+      <button type="button" data-go="maps" title="Committed figures">Maps</button>
+    </nav>
+    <div class="work">
+    <div class="how">
+      <p class="kicker">How to read</p>
+      <p>Start on Winter outlook. That panel is the CPC seasonal outlook and the 1991-2020 snowfall normals. Ledger lists studies that lost to a named bar. NWM is three separate river-model files; do not mix the tables. Catalog is one row per study. Maps holds up to two committed figures per study. Status words: locked means the question is answered; parked means the official layer is empty; stop means the window does not overlap.</p>
+    </div>
+    <section id="outlook" data-panel="outlook" class="is-on">
+      <p class="kicker">Official fields</p>
+      <p class="read-this">This is the current CPC seasonal outlook for Indiana and the station snowfall normals those studies are scored against. Models that lost sit on Ledger, not here.</p>
+      <h2>CPC DJF 2026-27 issued 2026-08-20</h2>
       <p>Issued 2026-08-20. Valid December 2026 through February 2027. Next CPC update 2026-09-17. Climatology 1991-2020.</p>
       <p>Indiana temperature: Above-normal lean. The issued map puts the higher above-normal probabilities over northern Indiana (same band as the Great Lakes) and a weaker tilt over the south. Precipitation: Equal chances. A below-normal lean is drawn over Michigan; it is not drawn across Indiana on this issue.</p>
       <p>El Nino is present and strengthening. CPC cites a greater than 90 percent chance of a very strong event this fall and winter. Forecaster Scott Handel, 830 AM EDT Thu Aug 20 2026.</p>
+      <div class="fig-row">
       <figure>
-        <img src="assets/cpc/off04_temp.gif" alt="NOAA CPC seasonal temperature outlook, DJF 2026-27, issued 2026-08-20">
+        <img class="zoom" src="assets/cpc/off04_temp.gif" alt="NOAA CPC seasonal temperature outlook, DJF 2026-27, issued 2026-08-20">
       </figure>
       <figure>
-        <img src="assets/cpc/off04_prcp.gif" alt="NOAA CPC seasonal precipitation outlook, DJF 2026-27, issued 2026-08-20">
+        <img class="zoom" src="assets/cpc/off04_prcp.gif" alt="NOAA CPC seasonal precipitation outlook, DJF 2026-27, issued 2026-08-20">
       </figure>
+      </div>
       <p><a href="https://www.cpc.ncep.noaa.gov/products/predictions/90day/fxus05.html">CPC prognostic discussion</a>. The GIFs in this repo are the 2026-08-20 snapshots. CPC's live lead-4 URL changes when the next outlook is issued.</p>
-    </section>
-
     <section id="normals">
       <h2>1991-2020 DJF snowfall normals</h2>
       <div class="table-wrap">
@@ -48,10 +64,17 @@
         </table>
       </div>
       <p>NCEI 1991-2020 MLY-SNOW-NORMAL. DJF is the sum of December, January, and February monthly snowfall normals. Inches. Retrieved 2026-08-29.</p>
+      <p class="jump">Snowfall research:
+        <button type="button" data-go="catalog" data-lane="precip">All precip studies</button>
+        <button type="button" data-open-map="indiana_djf_snow_tercile">Winter snow vs the 1991-2020 normal</button>
+        <button type="button" data-open-map="nwi_lake_effect_snow">NWI lake-belt snow</button>
+      </p>
+    </section>
     </section>
 
-    <section id="ledger">
+    <section id="ledger" data-panel="ledger">
       <h2>Ledger</h2>
+      <p class="read-this">Each row is a study that lost. Compare the held-out number to the bar. Smaller error wins; the bar won.</p>
       <p>Locked holdouts. Each row lost to the named bar. Details stay in the linked repos.</p>
       <div class="table-wrap">
         <table>
@@ -64,18 +87,423 @@
             </tr>
           </thead>
           <tbody>
-            <tr><td><a href="https://github.com/martialsystems/indiana_djf_snow_tercile">indiana_djf_snow_tercile</a></td><td>1991-2020 normal</td><td>Ridge RMSE 14.48 in vs normal 13.00 in vs last year 10.18 in.</td><td><a href="https://github.com/martialsystems/indiana_djf_snow_tercile/commit/9aa7935">9aa7935</a></td></tr>
-            <tr><td><a href="https://github.com/martialsystems/indiana_cocorahs_mrms">indiana_cocorahs_mrms</a></td><td>RadarOnly</td><td>RadarOnly RMSE 0.133 in. HGB 0.141. Ridge 0.124 RMSE then 0.049 MAE against radar 0.048.</td><td><a href="https://github.com/martialsystems/indiana_cocorahs_mrms/commit/ac36f0f">ac36f0f</a></td></tr>
-            <tr><td><a href="https://github.com/martialsystems/indiana_radar_miss">indiana_radar_miss</a></td><td>union miss 0.378</td><td>Lake 0.375 vs 0.379. Far range 0.403 vs 0.370. HGB Brier 0.226 vs 0.235, AUC 0.59.</td><td><a href="https://github.com/martialsystems/indiana_radar_miss/commit/1416da1">1416da1</a></td></tr>
+            <tr><td><a href="https://github.com/martialsystems/indiana_djf_snow_tercile">indiana_djf_snow_tercile</a></td><td>1991-2020 normal RMSE 13.00 in</td><td>Ridge RMSE 14.48 in vs normal 13.00 in vs last year 10.18 in.</td><td><a href="https://github.com/martialsystems/indiana_djf_snow_tercile/commit/9aa7935">9aa7935</a></td></tr>
+            <tr><td><a href="https://github.com/martialsystems/indiana_cocorahs_mrms">indiana_cocorahs_mrms</a></td><td>RadarOnly RMSE</td><td>RadarOnly RMSE 0.133 in. HGB 0.141. Ridge 0.124 RMSE then 0.049 MAE against radar 0.048.</td><td><a href="https://github.com/martialsystems/indiana_cocorahs_mrms/commit/ac36f0f">ac36f0f</a></td></tr>
+            <tr><td><a href="https://github.com/martialsystems/indiana_radar_miss">indiana_radar_miss</a></td><td>union wet-day miss ~0.38</td><td>Lake 0.375 vs 0.379. Far range 0.403 vs 0.370. HGB Brier 0.226 vs 0.235, AUC 0.59.</td><td><a href="https://github.com/martialsystems/indiana_radar_miss/commit/1416da1">1416da1</a></td></tr>
             <tr><td><a href="https://github.com/martialsystems/indiana_winter_lake_miss">indiana_winter_lake_miss</a></td><td>JJA lake 0.375 vs 0.379</td><td>NDJFM lake 0.391 vs 0.375. Union 0.377 vs JJA 0.378.</td><td><a href="https://github.com/martialsystems/indiana_winter_lake_miss/commit/6b47f21">6b47f21</a></td></tr>
-            <tr><td><a href="https://github.com/martialsystems/indiana_freeze_date">indiana_freeze_date</a></td><td>1991-2020 median date</td><td>Last year MAE 11.7 vs median 8.8 fall; 11.4 vs 8.2 spring.</td><td><a href="https://github.com/martialsystems/indiana_freeze_date/commit/28941fb">28941fb</a></td></tr>
+            <tr><td><a href="https://github.com/martialsystems/indiana_freeze_date">indiana_freeze_date</a></td><td>1991-2020 median MAE</td><td>Last year MAE 11.7 days vs 1991-2020 median 8.8 fall; 11.4 vs 8.2 spring.</td><td><a href="https://github.com/martialsystems/indiana_freeze_date/commit/28941fb">28941fb</a></td></tr>
+            <tr><td><a href="https://github.com/martialsystems/white_river_rain_stage">white_river_rain_stage</a></td><td>yesterday Nora stage</td><td>Persistence RMSE 1.03 ft vs Ridge 3.19 ft.</td><td><a href="https://github.com/martialsystems/white_river_rain_stage/commit/e41fd69">e41fd69</a></td></tr>
           </tbody>
         </table>
       </div>
     </section>
 
-    <p class="foot">Martial Systems LLC. CPC and NCEI numbers are dated official fields. Ledger SHAs are frozen. Live: <a href="https://martialsystems.github.io/indiana_wx_pages/">martialsystems.github.io/indiana_wx_pages/</a>. Research index: <a href="https://gist.github.com/martialsystems/66b896b0a4a0b8cba2b478aef64312f3">gist 66b896b0</a>.</p>
+    <section id="nwm" data-panel="nwm">
+      <h2>National Water Model</h2>
+      <p class="read-this">Lower RMSE is better. Yesterday is last day's USGS flow at that gage. AnA has already seen recent observations. Medium-range +24 h is a forecast. v2.1 is an older retrospective. Keep the three tables apart.</p>
+      <p>Three files stay three. AnA is analysis_assim tm00. Medium-range is +24 h mem1. v2.1 is the retrospective.</p>
+      <div class="nwm-keys">
+        <button type="button" class="is-on" data-nwm="analysis_assim_t12z_tm00">AnA tm00</button>
+<button type="button" class="nwm-key" data-nwm="medium_range_mem1_t12z_f024">Medium-range +24 h</button>
+<button type="button" class="nwm-key" data-nwm="nwm_retrospective_v2.1">NWM v2.1 retro</button>
+      </div>
+      <div class="nwm-table is-on" data-product="analysis_assim_t12z_tm00">
+        <p class="kicker">Product: analysis_assim_t12z_tm00</p>
+        <h3>AnA tm00</h3>
+        <p>RMSE and MAE in cfs. Yesterday is lag-1 USGS 00060. Window: 2025-01-01 2026-08-31.</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Gage</th>
+                <th>Yesterday RMSE (cfs)</th>
+                <th>Model RMSE (cfs)</th>
+                <th>MAE (cfs)</th>
+                <th>Bias (cfs)</th>
+                <th>Days</th>
+                <th>Beats yesterday</th>
+              </tr>
+            </thead>
+            <tbody>
+            <tr><td>Anderson 03348000</td><td class="num">813</td><td class="num">252</td><td class="num">75</td><td class="num">-6</td><td class="num">604</td><td class="flag flag-yes">yes</td></tr>
+            <tr><td>Nora 03351000</td><td class="num">1179</td><td class="num">301</td><td class="num">127</td><td class="num">7</td><td class="num">603</td><td class="flag flag-yes">yes</td></tr>
+            <tr><td>Indianapolis 03353000</td><td class="num">1472</td><td class="num">559</td><td class="num">289</td><td class="num">-17</td><td class="num">604</td><td class="flag flag-yes">yes</td></tr>
+            <tr><td>Centerton 03354000</td><td class="num">1770</td><td class="num">622</td><td class="num">250</td><td class="num">67</td><td class="num">607</td><td class="flag flag-yes">yes</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="nwm-table" data-product="medium_range_mem1_t12z_f024">
+        <p class="kicker">Product: medium_range_mem1_t12z_f024</p>
+        <h3>Medium-range +24 h</h3>
+        <p>RMSE and MAE in cfs. Yesterday is lag-1 USGS 00060. Window: 2025-01-01 2026-08-31.</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Gage</th>
+                <th>Yesterday RMSE (cfs)</th>
+                <th>Model RMSE (cfs)</th>
+                <th>MAE (cfs)</th>
+                <th>Bias (cfs)</th>
+                <th>Days</th>
+                <th>Beats yesterday</th>
+              </tr>
+            </thead>
+            <tbody>
+            <tr><td>Anderson 03348000</td><td class="num">813</td><td class="num">962</td><td class="num">254</td><td class="num">11</td><td class="num">604</td><td class="flag flag-no">no</td></tr>
+            <tr><td>Nora 03351000</td><td class="num">1179</td><td class="num">833</td><td class="num">365</td><td class="num">151</td><td class="num">603</td><td class="flag flag-yes">yes</td></tr>
+            <tr><td>Indianapolis 03353000</td><td class="num">1472</td><td class="num">1200</td><td class="num">566</td><td class="num">127</td><td class="num">604</td><td class="flag flag-yes">yes</td></tr>
+            <tr><td>Centerton 03354000</td><td class="num">1770</td><td class="num">1448</td><td class="num">677</td><td class="num">-28</td><td class="num">607</td><td class="flag flag-yes">yes</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="nwm-table" data-product="nwm_retrospective_v2.1">
+        <p class="kicker">Product: nwm_retrospective_v2.1</p>
+        <h3>NWM v2.1 retro</h3>
+        <p>RMSE and MAE in cfs. Yesterday is lag-1 USGS 00060. Window: holdout 2018-10-01 2020-12-31.</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Gage</th>
+                <th>Yesterday RMSE (cfs)</th>
+                <th>Model RMSE (cfs)</th>
+                <th>MAE (cfs)</th>
+                <th>Bias (cfs)</th>
+                <th>Days</th>
+                <th>Beats yesterday</th>
+              </tr>
+            </thead>
+            <tbody>
+            <tr><td>Anderson 03348000</td><td class="num">676</td><td class="num">488</td><td class="num">241</td><td class="num">-10</td><td class="num">823</td><td class="flag flag-yes">yes</td></tr>
+            <tr><td>Nora 03351000</td><td class="num">1243</td><td class="num">1316</td><td class="num">724</td><td class="num">70</td><td class="num">823</td><td class="flag flag-no">no</td></tr>
+            <tr><td>Indianapolis 03353000</td><td class="num">1450</td><td class="num">1994</td><td class="num">1198</td><td class="num">319</td><td class="num">823</td><td class="flag flag-no">no</td></tr>
+            <tr><td>Centerton 03354000</td><td class="num">1795</td><td class="num">2414</td><td class="num">1549</td><td class="num">483</td><td class="num">823</td><td class="flag flag-no">no</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="catalog" data-panel="catalog">
+      <h2>Catalog</h2>
+      <p class="read-this">One question per row. Filter by lane, then type a word. A row with a pointer opens that study's figures.</p>
+      <p>Click a row to open its figures. Filter by lane or type to search.</p>
+      <div class="lane-keys"><button type="button" data-lane="all" class="is-on">All</button><button type="button" data-lane="maps">Maps</button><button type="button" data-lane="white_river_q">White River Q</button><button type="button" data-lane="precip">Precip</button><button type="button" data-lane="temp">Temp</button><button type="button" data-lane="site">Site</button></div>
+      <input id="catalog-q" type="search" placeholder="Search trees">
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Tree</th>
+              <th>Status</th>
+              <th>Question</th>
+              <th>Metric</th>
+              <th>SHA</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-lane="maps" data-open-map="calumet_fim_or_stop" title="Open figures"><td><a href="https://github.com/martialsystems/calumet_fim_or_stop">Calumet FIM compare <code class="slug">calumet_fim_or_stop</code></a></td><td><span class="chip chip-stop" title="stop: the compare cannot run">stop</span></td><td>FIM library exists; window is the wrong HUC; stop. SIR 2020-5074 is 07120003; HAND a7dcd81 is 04040001; finite HAND cells 0.</td><td>finite HAND cells 0</td><td><a href="https://github.com/martialsystems/calumet_fim_or_stop/commit/e11fce4">e11fce4</a></td></tr>
+            <tr data-lane="maps"><td><a href="https://github.com/martialsystems/calumet_flood_completion">Calumet floodplain completion <code class="slug">calumet_flood_completion</code></a></td><td><span class="chip chip-locked" title="locked: answered; the split stays">locked</span></td><td>Which 30 m cells in Little Calumet-Galien (HUC-8 04040001) look like the current FEMA SFHA given terrain and distance-to-water?</td><td>0.274 vs HAND 0.220</td><td><a href="https://github.com/martialsystems/calumet_flood_completion/commit/dc1689e">dc1689e</a></td></tr>
+            <tr data-lane="maps" data-open-map="indiana_flood_completion" title="Open figures"><td><a href="https://github.com/martialsystems/indiana_flood_completion">Upper White floodplain completion <code class="slug">indiana_flood_completion</code></a></td><td><span class="chip chip-locked" title="locked: answered; the split stays">locked</span></td><td>Which 30 m cells look like the current FEMA SFHA given terrain and distance-to-water?</td><td>calibrated OOF PR-AUC 0.36</td><td><a href="https://github.com/martialsystems/indiana_flood_completion/commit/79b2ef7">79b2ef7</a></td></tr>
+            <tr data-lane="maps" data-open-map="white_river_fim_compare" title="Open figures"><td><a href="https://github.com/martialsystems/white_river_fim_compare">Nora HAND vs USGS FIM <code class="slug">white_river_fim_compare</code></a></td><td><span class="chip chip-locked" title="locked: answered; the split stays">locked</span></td><td>Does that HAND bathtub sit in the same neighborhood as USGS SIR 2011-5138?</td><td>504/528 flood; 618/619 crest</td><td><a href="https://github.com/martialsystems/white_river_fim_compare/commit/05a8f3a">05a8f3a</a></td></tr>
+            <tr data-lane="maps" data-open-map="white_river_hwm_crest" title="Open figures"><td><a href="https://github.com/martialsystems/white_river_hwm_crest">August 2026 high-water marks <code class="slug">white_river_hwm_crest</code></a></td><td><span class="chip chip-parked" title="parked: waiting on an official data layer">parked</span></td><td>Do August 2026 HWMs land on the Nora HAND wet mask at 21.18 ft?</td><td>empty official layer</td><td><a href="https://github.com/martialsystems/white_river_hwm_crest/commit/cba64bc">cba64bc</a></td></tr>
+            <tr data-lane="maps" data-open-map="white_river_stage_inundation" title="Open figures"><td><a href="https://github.com/martialsystems/white_river_stage_inundation">Nora wet cells at two stages <code class="slug">white_river_stage_inundation</code></a></td><td><span class="chip chip-locked" title="locked: answered; the split stays">locked</span></td><td>Which cells on one White River reach are wet at 11.00 ft and at 21.18 ft?</td><td>wet cells 1197 / 1876</td><td><a href="https://github.com/martialsystems/white_river_stage_inundation/commit/ebac88a">ebac88a</a></td></tr>
+            <tr data-lane="white_river_q" data-open-map="nwm_ana_2025_26" title="Open figures"><td><a href="https://github.com/martialsystems/nwm_ana_2025_26">NWM analysis 2025-26 <code class="slug">nwm_ana_2025_26</code></a></td><td><span class="chip chip-locked" title="locked: answered; the split stays">locked</span></td><td>Operational NWM AnA t12z tm00 2025-01-01 to 2026-08-31 beats yesterday at all four; not v2.1.</td><td>Nora 301 vs 1179</td><td><a href="https://github.com/martialsystems/nwm_ana_2025_26/commit/4fdedca">4fdedca</a></td></tr>
+            <tr data-lane="white_river_q" data-open-map="nwm_forecast_lead_white_river" title="Open figures"><td><a href="https://github.com/martialsystems/nwm_forecast_lead_white_river">NWM medium-range +24 h <code class="slug">nwm_forecast_lead_white_river</code></a></td><td><span class="chip chip-locked" title="locked: answered; the split stays">locked</span></td><td>medium-range mem1 +24 h t12z f024 vs yesterday; loses Anderson; not AnA.</td><td>Anderson 962 vs 813 (loses); Nora 833 vs 1179</td><td><a href="https://github.com/martialsystems/nwm_forecast_lead_white_river/commit/e64b20b">e64b20b</a></td></tr>
+            <tr data-lane="white_river_q" data-open-map="white_river_anderson_nora" title="Open figures"><td><a href="https://github.com/martialsystems/white_river_anderson_nora">Anderson to Nora <code class="slug">white_river_anderson_nora</code></a></td><td><span class="chip chip-locked" title="locked: answered; the split stays">locked</span></td><td>Does yesterday at Anderson help you guess Nora&#x27;s flow today?</td><td>Anderson lag-1 971 vs Nora 1243 vs NWM 1316</td><td><a href="https://github.com/martialsystems/white_river_anderson_nora/commit/58859be">58859be</a></td></tr>
+            <tr data-lane="white_river_q" data-open-map="white_river_eagle_creek_gap" title="Open figures"><td><a href="https://github.com/martialsystems/white_river_eagle_creek_gap">Eagle Creek vs Nora plus Fall Creek <code class="slug">white_river_eagle_creek_gap</code></a></td><td><span class="chip chip-locked" title="locked: answered; the split stays">locked</span></td><td>Does adding Eagle Creek beat Nora plus Fall Creek at Centerton?</td><td>1607 RMSE yes / 823 MAE no vs Nora+FC 1734/791</td><td><a href="https://github.com/martialsystems/white_river_eagle_creek_gap/commit/8e4fdca">8e4fdca</a></td></tr>
+            <tr data-lane="white_river_q" data-open-map="white_river_eagle_persistence" title="Open figures"><td><a href="https://github.com/martialsystems/white_river_eagle_persistence">Eagle Creek vs yesterday <code class="slug">white_river_eagle_persistence</code></a></td><td><span class="chip chip-locked" title="locked: answered; the split stays">locked</span></td><td>Does adding Eagle Creek help you guess tomorrow&#x27;s flow at Centerton?</td><td>mixes RMSE yes MAE no; Eagle-only 2421</td><td><a href="https://github.com/martialsystems/white_river_eagle_persistence/commit/ea1c0e1">ea1c0e1</a></td></tr>
+            <tr data-lane="white_river_q" data-open-map="white_river_fall_creek_gap" title="Open figures"><td><a href="https://github.com/martialsystems/white_river_fall_creek_gap">Fall Creek at Indianapolis <code class="slug">white_river_fall_creek_gap</code></a></td><td><span class="chip chip-locked" title="locked: answered; the split stays">locked</span></td><td>Does adding Fall Creek help you guess tomorrow&#x27;s flow at Indianapolis?</td><td>Nora+FC 1265 vs persistence 1450</td><td><a href="https://github.com/martialsystems/white_river_fall_creek_gap/commit/962d503">962d503</a></td></tr>
+            <tr data-lane="white_river_q" data-open-map="white_river_nwm_error" title="Open figures"><td><a href="https://github.com/martialsystems/white_river_nwm_error">NWM v2.1 vs yesterday <code class="slug">white_river_nwm_error</code></a></td><td><span class="chip chip-locked" title="locked: answered; the split stays">locked</span></td><td>Does the National Water Model beat yesterday&#x27;s flow?</td><td>Anderson 488 vs 676 (wins); Nora 1316 vs 1243 (loses)</td><td><a href="https://github.com/martialsystems/white_river_nwm_error/commit/fa2e315">fa2e315</a></td></tr>
+            <tr data-lane="white_river_q" data-open-map="white_river_rain_stage" title="Open figures"><td><a href="https://github.com/martialsystems/white_river_rain_stage">Rain to Nora stage <code class="slug">white_river_rain_stage</code></a></td><td><span class="chip chip-locked" title="locked: answered; the split stays">locked</span></td><td>Does rain on the Nora basin help you guess tomorrow&#x27;s stage?</td><td>Persistence 1.03 ft vs Ridge 3.19 ft</td><td><a href="https://github.com/martialsystems/white_river_rain_stage/commit/e41fd69">e41fd69</a></td></tr>
+            <tr data-lane="precip" data-open-map="indiana_cocorahs_mrms" title="Open figures"><td><a href="https://github.com/martialsystems/indiana_cocorahs_mrms">Radar vs rain gauges <code class="slug">indiana_cocorahs_mrms</code></a></td><td><span class="chip chip-locked" title="locked: answered; the split stays">locked</span></td><td>Does RadarOnly MRMS match CoCoRaHS daily rain at held-out Indiana stations?</td><td>RadarOnly RMSE 0.133 in. HGB 0.141. Ridge 0.124 RMSE then 0.049 MAE against radar 0.048.</td><td><a href="https://github.com/martialsystems/indiana_cocorahs_mrms/commit/ac36f0f">ac36f0f</a></td></tr>
+            <tr data-lane="precip" data-open-map="indiana_djf_snow_tercile" title="Open figures"><td><a href="https://github.com/martialsystems/indiana_djf_snow_tercile">Winter snow vs the normal <code class="slug">indiana_djf_snow_tercile</code></a></td><td><span class="chip chip-locked" title="locked: answered; the split stays">locked</span></td><td>Can October features plus ENSO beat the 1991-2020 DJF snowfall normal at held-out Indiana GHCND stations?</td><td>Ridge RMSE 14.48 in vs normal 13.00 in vs last year 10.18 in.</td><td><a href="https://github.com/martialsystems/indiana_djf_snow_tercile/commit/9aa7935">9aa7935</a></td></tr>
+            <tr data-lane="precip" data-open-map="indiana_radar_miss" title="Open figures"><td><a href="https://github.com/martialsystems/indiana_radar_miss">Summer radar misses <code class="slug">indiana_radar_miss</code></a></td><td><span class="chip chip-locked" title="locked: answered; the split stays">locked</span></td><td>When does RadarOnly miss CoCoRaHS daily rain at held-out Indiana stations?</td><td>Lake 0.375 vs 0.379. Far range 0.403 vs 0.370. HGB Brier 0.226 vs 0.235, AUC 0.59.</td><td><a href="https://github.com/martialsystems/indiana_radar_miss/commit/1416da1">1416da1</a></td></tr>
+            <tr data-lane="precip" data-open-map="indiana_winter_lake_miss" title="Open figures"><td><a href="https://github.com/martialsystems/indiana_winter_lake_miss">Winter lake radar misses <code class="slug">indiana_winter_lake_miss</code></a></td><td><span class="chip chip-locked" title="locked: answered; the split stays">locked</span></td><td>Does the RadarOnly miss rate jump in the northwest lake sector in winter?</td><td>NDJFM lake 0.391 vs 0.375. Union 0.377 vs JJA 0.378.</td><td><a href="https://github.com/martialsystems/indiana_winter_lake_miss/commit/6b47f21">6b47f21</a></td></tr>
+            <tr data-lane="precip" data-open-map="nwi_lake_effect_snow" title="Open figures"><td><a href="https://github.com/martialsystems/nwi_lake_effect_snow">NWI lake-belt snow <code class="slug">nwi_lake_effect_snow</code></a></td><td><span class="chip chip-locked" title="locked: answered; the split stays">locked</span></td><td>Does the NWI lake belt get more NDJFM snow days and snow inches than inland Indiana on the same winters?</td><td>+31.81 in / +9.55 days vs Indy. Michigan City USC00125604 and Valparaiso USW00004846: no complete NDJFM SNOW, not scored.</td><td><a href="https://github.com/martialsystems/nwi_lake_effect_snow/commit/82ce0ce">82ce0ce</a></td></tr>
+            <tr data-lane="temp" data-open-map="indiana_freeze_date" title="Open figures"><td><a href="https://github.com/martialsystems/indiana_freeze_date">First and last 32 F <code class="slug">indiana_freeze_date</code></a></td><td><span class="chip chip-locked" title="locked: answered; the split stays">locked</span></td><td>Does last year&#x27;s first/last 32 F date beat the 1991-2020 median date at held-out Indiana GHCND cores?</td><td>Last year MAE 11.7 days vs 1991-2020 median 8.8 fall; 11.4 vs 8.2 spring.</td><td><a href="https://github.com/martialsystems/indiana_freeze_date/commit/28941fb">28941fb</a></td></tr>
+            <tr data-lane="site"><td><a href="https://github.com/martialsystems/indiana_wx_pages">Official winter pages <code class="slug">indiana_wx_pages</code></a></td><td><span class="chip chip-locked" title="locked: answered; the split stays">locked</span></td><td>Official winter outlook and station normals, plus a ledger of models that did not beat those fields.</td><td>Stage B CPC DJF 2026-27 issued 2026-08-20</td><td><a href="https://github.com/martialsystems/indiana_wx_pages/commit/918adca">918adca</a></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="maps" data-panel="maps">
+      <h2>Maps</h2>
+      <p class="read-this">These are committed figures from the pinned studies: floodplain maps, hydrographs, and station plots. Click a name, then click a figure to enlarge. Two figures max per study.</p>
+      <p>Click a tree, then click a figure to enlarge. Two figures max per tree.</p>
+      <div class="map-keys"><button type="button" class="is-on" data-map="calumet_fim_or_stop">Calumet FIM compare</button><button type="button" class="map-key" data-map="indiana_flood_completion">Upper White floodplain completion</button><button type="button" class="map-key" data-map="white_river_fim_compare">Nora HAND vs USGS FIM</button><button type="button" class="map-key" data-map="white_river_hwm_crest">August 2026 high-water marks</button><button type="button" class="map-key" data-map="white_river_stage_inundation">Nora wet cells at two stages</button><button type="button" class="map-key" data-map="nwm_ana_2025_26">NWM analysis 2025-26</button><button type="button" class="map-key" data-map="nwm_forecast_lead_white_river">NWM medium-range +24 h</button><button type="button" class="map-key" data-map="white_river_anderson_nora">Anderson to Nora</button><button type="button" class="map-key" data-map="white_river_eagle_creek_gap">Eagle Creek vs Nora plus Fall Creek</button><button type="button" class="map-key" data-map="white_river_eagle_persistence">Eagle Creek vs yesterday</button><button type="button" class="map-key" data-map="white_river_fall_creek_gap">Fall Creek at Indianapolis</button><button type="button" class="map-key" data-map="white_river_nwm_error">NWM v2.1 vs yesterday</button><button type="button" class="map-key" data-map="white_river_rain_stage">Rain to Nora stage</button><button type="button" class="map-key" data-map="indiana_cocorahs_mrms">Radar vs rain gauges</button><button type="button" class="map-key" data-map="indiana_djf_snow_tercile">Winter snow vs the normal</button><button type="button" class="map-key" data-map="indiana_radar_miss">Summer radar misses</button><button type="button" class="map-key" data-map="indiana_winter_lake_miss">Winter lake radar misses</button><button type="button" class="map-key" data-map="nwi_lake_effect_snow">NWI lake-belt snow</button><button type="button" class="map-key" data-map="indiana_freeze_date">First and last 32 F</button></div>
+      <article class="map-card is-on" data-tree="calumet_fim_or_stop">
+        <h3><a href="https://github.com/martialsystems/calumet_fim_or_stop">Calumet FIM compare</a></h3>
+        <p class="slug-line"><code>calumet_fim_or_stop</code></p>
+        <p>FIM library exists; window is the wrong HUC; stop. SIR 2020-5074 is 07120003; HAND a7dcd81 is 04040001; finite HAND cells 0.</p>
+        <p>Status: stop (the compare cannot run)</p>
+        <p>SIR 2020-5074 is Dunn/Straub/Manaster 2020, 24 published profiles, gages 05536195 and 05536290. Those gages are HUC 07120003. Frozen HAND a7dcd81 is HUC 04040001. Finite HAND cells on the Munster to South Holland window: 0. Stop.</p>
+      </article>
+      <article class="map-card" data-tree="indiana_flood_completion">
+        <h3><a href="https://github.com/martialsystems/indiana_flood_completion">Upper White floodplain completion</a></h3>
+        <p class="slug-line"><code>indiana_flood_completion</code></p>
+        <p>Which 30 m cells look like the current FEMA SFHA given terrain and distance-to-water?</p>
+        <p>Status: locked (answered; the split stays)</p>
+        <p>P(sfha|hydro) is map-completion, not water at a stage.</p>
+        <figure>
+          <img class="zoom" src="assets/trees/indiana_flood_completion/disagreement.png" alt="Upper White floodplain completion: disagreement">
+          <figcaption>Upper White floodplain completion: disagreement</figcaption>
+        </figure>
+      </article>
+      <article class="map-card" data-tree="white_river_fim_compare">
+        <h3><a href="https://github.com/martialsystems/white_river_fim_compare">Nora HAND vs USGS FIM</a></h3>
+        <p class="slug-line"><code>white_river_fim_compare</code></p>
+        <p>Does that HAND bathtub sit in the same neighborhood as USGS SIR 2011-5138?</p>
+        <p>Status: locked (answered; the split stays)</p>
+        <figure>
+          <img class="zoom" src="assets/trees/white_river_fim_compare/four_wet.png" alt="Nora HAND vs USGS FIM: four wet">
+          <figcaption>Nora HAND vs USGS FIM: four wet</figcaption>
+        </figure>
+        <figure>
+          <img class="zoom" src="assets/trees/white_river_fim_compare/four_wet_crest_2026-08-15.png" alt="Nora HAND vs USGS FIM: four wet crest 2026 08 15">
+          <figcaption>Nora HAND vs USGS FIM: four wet crest 2026 08 15</figcaption>
+        </figure>
+      </article>
+      <article class="map-card" data-tree="white_river_hwm_crest">
+        <h3><a href="https://github.com/martialsystems/white_river_hwm_crest">August 2026 high-water marks</a></h3>
+        <p class="slug-line"><code>white_river_hwm_crest</code></p>
+        <p>Do August 2026 HWMs land on the Nora HAND wet mask at 21.18 ft?</p>
+        <p>Status: parked (waiting on an official data layer)</p>
+        <figure>
+          <img class="zoom" src="assets/trees/white_river_hwm_crest/hwm_counts.png" alt="August 2026 high-water marks: hwm counts parked">
+          <figcaption>August 2026 high-water marks: hwm counts parked</figcaption>
+        </figure>
+        <figure>
+          <img class="zoom" src="assets/trees/white_river_hwm_crest/hwm_on_crest.png" alt="August 2026 high-water marks: hwm on crest parked">
+          <figcaption>August 2026 high-water marks: hwm on crest parked</figcaption>
+        </figure>
+      </article>
+      <article class="map-card" data-tree="white_river_stage_inundation">
+        <h3><a href="https://github.com/martialsystems/white_river_stage_inundation">Nora wet cells at two stages</a></h3>
+        <p class="slug-line"><code>white_river_stage_inundation</code></p>
+        <p>Which cells on one White River reach are wet at 11.00 ft and at 21.18 ft?</p>
+        <p>Status: locked (answered; the split stays)</p>
+        <figure>
+          <img class="zoom" src="assets/trees/white_river_stage_inundation/three_wet.png" alt="Nora wet cells at two stages: three wet">
+          <figcaption>Nora wet cells at two stages: three wet</figcaption>
+        </figure>
+        <figure>
+          <img class="zoom" src="assets/trees/white_river_stage_inundation/three_wet_crest_2026-08-15.png" alt="Nora wet cells at two stages: three wet crest 2026 08 15">
+          <figcaption>Nora wet cells at two stages: three wet crest 2026 08 15</figcaption>
+        </figure>
+      </article>
+      <article class="map-card" data-tree="nwm_ana_2025_26">
+        <h3><a href="https://github.com/martialsystems/nwm_ana_2025_26">NWM analysis 2025-26</a></h3>
+        <p class="slug-line"><code>nwm_ana_2025_26</code></p>
+        <p>Operational NWM AnA t12z tm00 2025-01-01 to 2026-08-31 beats yesterday at all four; not v2.1.</p>
+        <p>Status: locked (answered; the split stays)</p>
+        <figure>
+          <img class="zoom" src="assets/trees/nwm_ana_2025_26/hydrograph.png" alt="NWM analysis 2025-26: hydrograph">
+          <figcaption>NWM analysis 2025-26: hydrograph</figcaption>
+        </figure>
+        <figure>
+          <img class="zoom" src="assets/trees/nwm_ana_2025_26/residual_strip.png" alt="NWM analysis 2025-26: residual strip">
+          <figcaption>NWM analysis 2025-26: residual strip</figcaption>
+        </figure>
+      </article>
+      <article class="map-card" data-tree="nwm_forecast_lead_white_river">
+        <h3><a href="https://github.com/martialsystems/nwm_forecast_lead_white_river">NWM medium-range +24 h</a></h3>
+        <p class="slug-line"><code>nwm_forecast_lead_white_river</code></p>
+        <p>medium-range mem1 +24 h t12z f024 vs yesterday; loses Anderson; not AnA.</p>
+        <p>Status: locked (answered; the split stays)</p>
+        <figure>
+          <img class="zoom" src="assets/trees/nwm_forecast_lead_white_river/hydrograph.png" alt="NWM medium-range +24 h: hydrograph">
+          <figcaption>NWM medium-range +24 h: hydrograph</figcaption>
+        </figure>
+        <figure>
+          <img class="zoom" src="assets/trees/nwm_forecast_lead_white_river/rmse_bars.png" alt="NWM medium-range +24 h: rmse bars">
+          <figcaption>NWM medium-range +24 h: rmse bars</figcaption>
+        </figure>
+      </article>
+      <article class="map-card" data-tree="white_river_anderson_nora">
+        <h3><a href="https://github.com/martialsystems/white_river_anderson_nora">Anderson to Nora</a></h3>
+        <p class="slug-line"><code>white_river_anderson_nora</code></p>
+        <p>Does yesterday at Anderson help you guess Nora&#x27;s flow today?</p>
+        <p>Status: locked (answered; the split stays)</p>
+        <figure>
+          <img class="zoom" src="assets/trees/white_river_anderson_nora/hydrograph.png" alt="Anderson to Nora: hydrograph">
+          <figcaption>Anderson to Nora: hydrograph</figcaption>
+        </figure>
+        <figure>
+          <img class="zoom" src="assets/trees/white_river_anderson_nora/lag_corr.png" alt="Anderson to Nora: lag corr">
+          <figcaption>Anderson to Nora: lag corr</figcaption>
+        </figure>
+      </article>
+      <article class="map-card" data-tree="white_river_eagle_creek_gap">
+        <h3><a href="https://github.com/martialsystems/white_river_eagle_creek_gap">Eagle Creek vs Nora plus Fall Creek</a></h3>
+        <p class="slug-line"><code>white_river_eagle_creek_gap</code></p>
+        <p>Does adding Eagle Creek beat Nora plus Fall Creek at Centerton?</p>
+        <p>Status: locked (answered; the split stays)</p>
+        <figure>
+          <img class="zoom" src="assets/trees/white_river_eagle_creek_gap/contributions.png" alt="Eagle Creek vs Nora plus Fall Creek: contributions">
+          <figcaption>Eagle Creek vs Nora plus Fall Creek: contributions</figcaption>
+        </figure>
+        <figure>
+          <img class="zoom" src="assets/trees/white_river_eagle_creek_gap/hydrograph.png" alt="Eagle Creek vs Nora plus Fall Creek: hydrograph">
+          <figcaption>Eagle Creek vs Nora plus Fall Creek: hydrograph</figcaption>
+        </figure>
+      </article>
+      <article class="map-card" data-tree="white_river_eagle_persistence">
+        <h3><a href="https://github.com/martialsystems/white_river_eagle_persistence">Eagle Creek vs yesterday</a></h3>
+        <p class="slug-line"><code>white_river_eagle_persistence</code></p>
+        <p>Does adding Eagle Creek help you guess tomorrow&#x27;s flow at Centerton?</p>
+        <p>Status: locked (answered; the split stays)</p>
+        <figure>
+          <img class="zoom" src="assets/trees/white_river_eagle_persistence/hydrograph.png" alt="Eagle Creek vs yesterday: hydrograph">
+          <figcaption>Eagle Creek vs yesterday: hydrograph</figcaption>
+        </figure>
+        <figure>
+          <img class="zoom" src="assets/trees/white_river_eagle_persistence/rmse_bars.png" alt="Eagle Creek vs yesterday: rmse bars">
+          <figcaption>Eagle Creek vs yesterday: rmse bars</figcaption>
+        </figure>
+      </article>
+      <article class="map-card" data-tree="white_river_fall_creek_gap">
+        <h3><a href="https://github.com/martialsystems/white_river_fall_creek_gap">Fall Creek at Indianapolis</a></h3>
+        <p class="slug-line"><code>white_river_fall_creek_gap</code></p>
+        <p>Does adding Fall Creek help you guess tomorrow&#x27;s flow at Indianapolis?</p>
+        <p>Status: locked (answered; the split stays)</p>
+        <figure>
+          <img class="zoom" src="assets/trees/white_river_fall_creek_gap/contributions.png" alt="Fall Creek at Indianapolis: contributions">
+          <figcaption>Fall Creek at Indianapolis: contributions</figcaption>
+        </figure>
+        <figure>
+          <img class="zoom" src="assets/trees/white_river_fall_creek_gap/hydrograph.png" alt="Fall Creek at Indianapolis: hydrograph">
+          <figcaption>Fall Creek at Indianapolis: hydrograph</figcaption>
+        </figure>
+      </article>
+      <article class="map-card" data-tree="white_river_nwm_error">
+        <h3><a href="https://github.com/martialsystems/white_river_nwm_error">NWM v2.1 vs yesterday</a></h3>
+        <p class="slug-line"><code>white_river_nwm_error</code></p>
+        <p>Does the National Water Model beat yesterday&#x27;s flow?</p>
+        <p>Status: locked (answered; the split stays)</p>
+        <figure>
+          <img class="zoom" src="assets/trees/white_river_nwm_error/hydrograph.png" alt="NWM v2.1 vs yesterday: hydrograph">
+          <figcaption>NWM v2.1 vs yesterday: hydrograph</figcaption>
+        </figure>
+        <figure>
+          <img class="zoom" src="assets/trees/white_river_nwm_error/residual_strip.png" alt="NWM v2.1 vs yesterday: residual strip">
+          <figcaption>NWM v2.1 vs yesterday: residual strip</figcaption>
+        </figure>
+      </article>
+      <article class="map-card" data-tree="white_river_rain_stage">
+        <h3><a href="https://github.com/martialsystems/white_river_rain_stage">Rain to Nora stage</a></h3>
+        <p class="slug-line"><code>white_river_rain_stage</code></p>
+        <p>Does rain on the Nora basin help you guess tomorrow&#x27;s stage?</p>
+        <p>Status: locked (answered; the split stays)</p>
+        <figure>
+          <img class="zoom" src="assets/trees/white_river_rain_stage/attribution.png" alt="Rain to Nora stage: attribution">
+          <figcaption>Rain to Nora stage: attribution</figcaption>
+        </figure>
+        <figure>
+          <img class="zoom" src="assets/trees/white_river_rain_stage/hydrograph.png" alt="Rain to Nora stage: hydrograph">
+          <figcaption>Rain to Nora stage: hydrograph</figcaption>
+        </figure>
+      </article>
+      <article class="map-card" data-tree="indiana_cocorahs_mrms">
+        <h3><a href="https://github.com/martialsystems/indiana_cocorahs_mrms">Radar vs rain gauges</a></h3>
+        <p class="slug-line"><code>indiana_cocorahs_mrms</code></p>
+        <p>Does RadarOnly MRMS match CoCoRaHS daily rain at held-out Indiana stations?</p>
+        <p>Status: locked (answered; the split stays)</p>
+        <figure>
+          <img class="zoom" src="assets/trees/indiana_cocorahs_mrms/bias_map.png" alt="Radar vs rain gauges: bias map">
+          <figcaption>Radar vs rain gauges: bias map</figcaption>
+        </figure>
+        <figure>
+          <img class="zoom" src="assets/trees/indiana_cocorahs_mrms/scatter.png" alt="Radar vs rain gauges: scatter">
+          <figcaption>Radar vs rain gauges: scatter</figcaption>
+        </figure>
+      </article>
+      <article class="map-card" data-tree="indiana_djf_snow_tercile">
+        <h3><a href="https://github.com/martialsystems/indiana_djf_snow_tercile">Winter snow vs the normal</a></h3>
+        <p class="slug-line"><code>indiana_djf_snow_tercile</code></p>
+        <p>Can October features plus ENSO beat the 1991-2020 DJF snowfall normal at held-out Indiana GHCND stations?</p>
+        <p>Status: locked (answered; the split stays)</p>
+        <figure>
+          <img class="zoom" src="assets/trees/indiana_djf_snow_tercile/error_map.png" alt="Winter snow vs the normal: error map">
+          <figcaption>Winter snow vs the normal: error map</figcaption>
+        </figure>
+        <figure>
+          <img class="zoom" src="assets/trees/indiana_djf_snow_tercile/scatter.png" alt="Winter snow vs the normal: scatter">
+          <figcaption>Winter snow vs the normal: scatter</figcaption>
+        </figure>
+      </article>
+      <article class="map-card" data-tree="indiana_radar_miss">
+        <h3><a href="https://github.com/martialsystems/indiana_radar_miss">Summer radar misses</a></h3>
+        <p class="slug-line"><code>indiana_radar_miss</code></p>
+        <p>When does RadarOnly miss CoCoRaHS daily rain at held-out Indiana stations?</p>
+        <p>Status: locked (answered; the split stays)</p>
+        <figure>
+          <img class="zoom" src="assets/trees/indiana_radar_miss/miss_factors.png" alt="Summer radar misses: miss factors">
+          <figcaption>Summer radar misses: miss factors</figcaption>
+        </figure>
+        <figure>
+          <img class="zoom" src="assets/trees/indiana_radar_miss/miss_map.png" alt="Summer radar misses: miss map">
+          <figcaption>Summer radar misses: miss map</figcaption>
+        </figure>
+      </article>
+      <article class="map-card" data-tree="indiana_winter_lake_miss">
+        <h3><a href="https://github.com/martialsystems/indiana_winter_lake_miss">Winter lake radar misses</a></h3>
+        <p class="slug-line"><code>indiana_winter_lake_miss</code></p>
+        <p>Does the RadarOnly miss rate jump in the northwest lake sector in winter?</p>
+        <p>Status: locked (answered; the split stays)</p>
+        <figure>
+          <img class="zoom" src="assets/trees/indiana_winter_lake_miss/miss_factors.png" alt="Winter lake radar misses: miss factors">
+          <figcaption>Winter lake radar misses: miss factors</figcaption>
+        </figure>
+        <figure>
+          <img class="zoom" src="assets/trees/indiana_winter_lake_miss/miss_map.png" alt="Winter lake radar misses: miss map">
+          <figcaption>Winter lake radar misses: miss map</figcaption>
+        </figure>
+      </article>
+      <article class="map-card" data-tree="nwi_lake_effect_snow">
+        <h3><a href="https://github.com/martialsystems/nwi_lake_effect_snow">NWI lake-belt snow</a></h3>
+        <p class="slug-line"><code>nwi_lake_effect_snow</code></p>
+        <p>Does the NWI lake belt get more NDJFM snow days and snow inches than inland Indiana on the same winters?</p>
+        <p>Status: locked (answered; the split stays)</p>
+        <figure>
+          <img class="zoom" src="assets/trees/nwi_lake_effect_snow/scatter.png" alt="NWI lake-belt snow: scatter">
+          <figcaption>NWI lake-belt snow: scatter</figcaption>
+        </figure>
+        <figure>
+          <img class="zoom" src="assets/trees/nwi_lake_effect_snow/station_map.png" alt="NWI lake-belt snow: station map">
+          <figcaption>NWI lake-belt snow: station map</figcaption>
+        </figure>
+      </article>
+      <article class="map-card" data-tree="indiana_freeze_date">
+        <h3><a href="https://github.com/martialsystems/indiana_freeze_date">First and last 32 F</a></h3>
+        <p class="slug-line"><code>indiana_freeze_date</code></p>
+        <p>Does last year&#x27;s first/last 32 F date beat the 1991-2020 median date at held-out Indiana GHCND cores?</p>
+        <p>Status: locked (answered; the split stays)</p>
+        <figure>
+          <img class="zoom" src="assets/trees/indiana_freeze_date/mae_bars.png" alt="First and last 32 F: mae bars">
+          <figcaption>First and last 32 F: mae bars</figcaption>
+        </figure>
+        <figure>
+          <img class="zoom" src="assets/trees/indiana_freeze_date/scatter.png" alt="First and last 32 F: scatter">
+          <figcaption>First and last 32 F: scatter</figcaption>
+        </figure>
+      </article>
+    </section>
+
+    <p class="foot">Martial Systems LLC. Research index: <a href="https://gist.github.com/martialsystems/66b896b0a4a0b8cba2b478aef64312f3">https://gist.github.com/martialsystems/66b896b0a4a0b8cba2b478aef64312f3</a>. Live sibling: <a href="https://martialsystems.github.io/indiana_wx_pages/">https://martialsystems.github.io/indiana_wx_pages/</a>.</p>
     <p class="notice">This is CPC and climate normals. It is not a National Weather Service forecast and it is not telling you to do anything.</p>
-  </main>
+    </div>
+  </div>
+  <dialog id="viewer">
+    <p class="kicker">Figure</p>
+    <img id="viewer-img" alt="">
+    <p id="viewer-cap"></p>
+    <button type="button" data-close-viewer>Close</button>
+  </dialog>
+  <script src="assets/console.js"></script>
 </body>
 </html>

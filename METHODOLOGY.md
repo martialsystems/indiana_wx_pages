@@ -4,6 +4,8 @@ Static GitHub Pages. The forecast stripe is official public fields. The Martial 
 
 Live URL: https://martialsystems.github.io/indiana_wx_pages/
 
+Public HTML is the Indiana research console snapshot. Stage B fields remain on the Winter outlook panel. Do not regenerate the Stage B outlook stub.
+
 First sentence on the site:
 
 Official winter outlook and station normals for Indiana, plus a ledger of models that did not beat those fields.

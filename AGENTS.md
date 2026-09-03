@@ -1,12 +1,12 @@
 # Agent rules: indiana_wx_pages
 
-Static GitHub Pages. Official stripe is CPC plus 1991-2020 normals, each with an issue date or climate period. Ledger rows are frozen holdouts, hand-copied from locked trees.
+Static GitHub Pages. Public HTML is the Indiana research console snapshot from Documents/indiana_research_console/pages. Official stripe is CPC plus 1991-2020 normals, each with an issue date or climate period. Ledger rows are frozen holdouts, hand-copied from locked trees.
 
 Do not skip the ledger for a map. Stage C maps footnote waits.
 
 Claim scan `index.html` and README: fail on "will get N inches," "flood warning," `p_sfha`, "unmapped risk," casualty language.
 
-Rebuild the page from JSON:
+Do not regenerate the Stage B outlook stub. `scripts/build_page.py` returns the committed console `index.html`:
 
 ```bash
 python3 scripts/build_page.py

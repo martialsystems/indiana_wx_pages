@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (c) 2026 Martial Systems LLC
-"""Phone-width 390x844 and desktop 1280x800 overflow check for the Pages stub.
+"""Phone-width 390x844 and desktop 1280x800 overflow check for the console.
 
   python3 scripts/viewport_sanity.py
 """
@@ -59,6 +59,12 @@ def static_errors() -> List[str]:
         errs.append("CPC GIF baked at native 3300px width")
     if 'class="banner"' in html:
         errs.append("slogan banner still in HTML")
+    if "assets/console.js" not in html:
+        errs.append("console.js not linked")
+    if "data-go=" not in html:
+        errs.append("console nav missing data-go")
+    if not (ROOT / "assets/console.js").is_file():
+        errs.append("missing assets/console.js")
     return errs
 
 

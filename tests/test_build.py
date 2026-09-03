@@ -1,5 +1,5 @@
 # Copyright (c) 2026 Martial Systems LLC
-"""Committed index.html matches scripts/build_page.py. Maps are on disk."""
+"""Committed console index.html matches build(); CPC GIFs are on disk."""
 
 from __future__ import annotations
 
@@ -32,3 +32,8 @@ def test_cpc_maps_exist() -> None:
     assert prcp.is_file() and prcp.read_bytes()[:6] == b"GIF89a"
     assert temp.stat().st_size > 50_000
     assert prcp.stat().st_size > 50_000
+    js = ROOT / "assets/console.js"
+    assert js.is_file() and "showPanel" in js.read_text(encoding="utf-8")
+    trees = ROOT / "assets/trees"
+    assert trees.is_dir()
+    assert any(trees.glob("*/*.png"))

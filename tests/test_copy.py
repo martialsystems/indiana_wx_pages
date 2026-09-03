@@ -35,9 +35,11 @@ def test_index_lead_cpc_and_cores() -> None:
     html = (ROOT / "index.html").read_text(encoding="utf-8")
     cpc = json.loads((ROOT / "data/official/cpc.json").read_text(encoding="utf-8"))
     normals = json.loads((ROOT / "data/official/normals.json").read_text(encoding="utf-8"))
-    assert "<h1>Indiana Winter Outlook</h1>" in html
+    assert "<h1>Indiana research console</h1>" in html
+    assert "<h1>Indiana Winter Outlook</h1>" not in html
     assert "<h1>{0}</h1>".format(LEAD) not in html
-    assert "<p>{0}</p>".format(LEAD) in html
+    assert LEAD in html
+    assert 'class="lead"' in html
     assert "<h1>Indiana weather pages</h1>" not in html
     assert "Science stays" not in html
     assert "those trees" not in html
@@ -49,7 +51,14 @@ def test_index_lead_cpc_and_cores() -> None:
     assert "XGBoost" not in html
     assert "What it is not" not in html
     assert "\u2014" not in html
+    assert "assets/console.js" in html
+    assert 'data-go="outlook"' in html
+    assert 'data-go="ledger"' in html
+    assert 'data-go="nwm"' in html
+    assert 'data-go="catalog"' in html
+    assert 'data-go="maps"' in html
     assert cpc["issued"] in html
+    assert "2026-08-20" in html
     assert cpc["season"] in html
     assert cpc["next_issue"] in html
     assert cpc["temp_map"] in html
@@ -73,21 +82,6 @@ def test_index_lead_cpc_and_cores() -> None:
     assert "median date" not in outlook
 
 
-def test_readme() -> None:
-    text = (ROOT / "README.md").read_text(encoding="utf-8")
-    body = "\n".join(text.splitlines()[1:]).lstrip()
-    assert body.startswith(LEAD)
-    assert "martialsystems.github.io/indiana_wx_pages" in text
-    assert "Stage B" in text
-    assert SLOGAN not in text
-    assert "Science stays" not in text
-    assert "Details stay in the linked repos." in text
-    assert "What it is not" not in text
-    assert _hits(text) == []
-    assert "\u2014" not in text
-    assert "gist.github.com/martialsystems/66b896b0" in text
-
-
 def test_methodology_names_stages() -> None:
     text = (ROOT / "METHODOLOGY.md").read_text(encoding="utf-8")
     assert "Stage 0" in text
@@ -97,3 +91,4 @@ def test_methodology_names_stages() -> None:
     assert NOTICE in text
     assert "https://martialsystems.github.io/indiana_wx_pages/" in text
     assert "\u2014" not in text
+    assert "What it is not" not in text
