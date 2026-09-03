@@ -20,4 +20,4 @@ python3 scripts/viewport_sanity.py
 
 MIT. Martial Systems LLC.
 
-Research index: https://gist.github.com/martialsystems/66b896b0a4a0b8cba2b478aef64312f3
+Research index: this page (https://martialsystems.github.io/indiana_wx_pages/). Pointer gist: https://gist.github.com/martialsystems/66b896b0a4a0b8cba2b478aef64312f3

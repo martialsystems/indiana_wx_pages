@@ -52,6 +52,11 @@ def test_index_lead_cpc_and_cores() -> None:
     assert "What it is not" not in html
     assert "\u2014" not in html
     assert "assets/console.js" in html
+    assert "This page is the research index" in html
+    assert "Live sibling:" not in html
+    assert "gist 66b896b0" in html
+    assert "https://gist.github.com/martialsystems/66b896b0a4a0b8cba2b478aef64312f3" in html
+    assert "https://github.com/martialsystems/indiana_research_console" in html
     assert 'data-go="outlook"' in html
     assert 'data-go="ledger"' in html
     assert 'data-go="nwm"' in html

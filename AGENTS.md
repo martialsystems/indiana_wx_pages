@@ -16,4 +16,4 @@ Do not restamp frozen science trees (`ac36f0f`, `1416da1`, `6b47f21`, `9aa7935`,
 
 Slogan banners stay off the page.
 
-Research index: https://gist.github.com/martialsystems/66b896b0a4a0b8cba2b478aef64312f3
+Readable index is this live page. Gist 66b896b0 is a pointer.

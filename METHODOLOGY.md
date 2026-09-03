@@ -52,7 +52,7 @@ Claim scan on `index.html` and README: fail on "will get N inches," "flood warni
 
 Settings: Pages, `main`, site root. MIT. `data/official/` is public NOAA/NCEI numbers with `source_url` and retrieved date in `SOURCES.md`. Do not commit RadarOnly stacks or NWIS dumps.
 
-Readable index is gist `66b896b0` (Site heading lists this page). `RESEARCH.md` in `.github` is a pointer, not a second full copy.
+Readable index is this live page. Gist `66b896b0` is a pointer. `RESEARCH.md` in `.github` is a pointer, not a second full copy.
 
 ## Later, still static
 
